@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function ShieldCheckIcon({ className }: { className?: string }) {
   return (
@@ -176,7 +177,9 @@ export default function Home() {
             <span className="font-bold text-slate-900 text-lg tracking-tight">Guardian Inbox</span>
           </div>
           <div className="flex items-center gap-5">
-            <span className="text-slate-400 text-sm hidden sm:block">Plans from $20/mo</span>
+            <Link href="/pricing" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
+              Pricing
+            </Link>
             <a
               href="#waitlist"
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm shadow-sm"
