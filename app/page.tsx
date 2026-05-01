@@ -222,9 +222,8 @@ export default function Home() {
           {/* Right — photo + floating badge */}
           <div className="relative hidden lg:block">
             <div className="rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/80">
-              {/* Production: swap src to https://images.unsplash.com/photo-WpiWnDCu82Q?auto=format&fit=crop&w=900&q=80 */}
               <Image
-                src="https://picsum.photos/seed/seniors-laptop/900/650"
+                src="https://images.unsplash.com/photo-WpiWnDCu82Q?auto=format&fit=crop&w=900&q=80"
                 alt="Senior couple happily using a laptop together at home"
                 width={900}
                 height={650}
@@ -388,9 +387,8 @@ export default function Home() {
 
           {/* Left — second photo */}
           <div className="hidden lg:block rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/80">
-            {/* Production: swap src to https://images.unsplash.com/photo-mYFWPgZqz0E?auto=format&fit=crop&w=900&q=80 */}
             <Image
-              src="https://picsum.photos/seed/elderly-couple/900/650"
+              src="https://images.unsplash.com/photo-mYFWPgZqz0E?auto=format&fit=crop&w=900&q=80"
               alt="Elderly couple relaxing at home"
               width={900}
               height={650}
