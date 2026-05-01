@@ -423,9 +423,9 @@ export default function Home() {
           </div>
           <p className="text-slate-400 text-sm">© 2026 Guardian Inbox. All rights reserved.</p>
           <div className="flex gap-6 text-sm text-slate-400">
-            <a href="#" className="hover:text-slate-700 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-slate-700 transition-colors">Terms of Service</a>
-            <a href="mailto:hello@guardianinbox.com" className="hover:text-slate-700 transition-colors">Contact</a>
+            <Link href="/privacy" className="hover:text-slate-700 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-slate-700 transition-colors">Terms of Service</Link>
+            <Link href="/contact" className="hover:text-slate-700 transition-colors">Contact</Link>
           </div>
         </div>
       </footer>
