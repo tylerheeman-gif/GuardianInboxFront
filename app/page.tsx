@@ -388,7 +388,7 @@ export default function Home() {
           {/* Left — second photo */}
           <div className="hidden lg:block rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/80">
             <Image
-              src="https://images.unsplash.com/photo-1603129473525-4cd6f36fe057?auto=format&fit=crop&w=900&q=80"
+              src="https://images.unsplash.com/photo-1758686254493-7b3e49a8f325?auto=format&fit=crop&w=900&q=80"
               alt="Elderly couple relaxing at home"
               width={900}
               height={650}
