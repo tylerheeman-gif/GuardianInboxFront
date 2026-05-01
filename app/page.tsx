@@ -336,7 +336,7 @@ export default function Home() {
 
       {/* Pricing */}
       <section className="bg-white px-6 py-20">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             A gift they&apos;ll use every single day
           </h2>
@@ -344,27 +344,41 @@ export default function Home() {
             Designed to be gifted — by adult children who want their parents to feel supported and
             protected without asking them to learn new technology.
           </p>
-          <div className="inline-block w-full max-w-xs bg-white rounded-3xl border border-slate-200 shadow-xl px-10 py-10">
-            <div className="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-2">
-              Starting at
-            </div>
-            <div className="text-7xl font-extrabold text-slate-900 leading-none">$20</div>
-            <div className="text-slate-400 text-sm mt-1 mb-7">per month</div>
-            <div className="space-y-2.5 text-left">
-              {[
-                'Cancel anytime, no contracts',
-                'No tech setup for your parent',
-                'Easy to gift in minutes',
-                'Early access pricing for waitlist',
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-2 text-sm text-slate-600">
-                  <CheckIcon className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                  {item}
-                </div>
-              ))}
-            </div>
+          <div className="grid sm:grid-cols-3 gap-5 mb-8">
+            {[
+              { name: 'Essential', price: '$19', desc: '1 user', highlight: false },
+              { name: 'Family', price: '$49', desc: 'Up to 2 users', highlight: true },
+              { name: 'Guardian', price: '$99', desc: 'Up to 5 users', highlight: false },
+            ].map(({ name, price, desc, highlight }) => (
+              <div
+                key={name}
+                className={`rounded-2xl p-6 border ${
+                  highlight
+                    ? 'bg-blue-600 border-blue-600'
+                    : 'bg-white border-slate-200 shadow-sm'
+                }`}
+              >
+                {highlight && (
+                  <div className="text-xs font-bold text-amber-400 mb-2 uppercase tracking-wide">Most Popular</div>
+                )}
+                <div className={`text-base font-semibold mb-1 ${highlight ? 'text-white' : 'text-slate-900'}`}>{name}</div>
+                <div className={`text-4xl font-extrabold mb-1 ${highlight ? 'text-white' : 'text-slate-900'}`}>{price}</div>
+                <div className={`text-sm mb-3 ${highlight ? 'text-blue-200' : 'text-slate-400'}`}>per month</div>
+                <div className={`text-sm ${highlight ? 'text-blue-100' : 'text-slate-500'}`}>{desc}</div>
+              </div>
+            ))}
           </div>
-          <p className="text-slate-400 text-xs mt-5">Full tier details available at launch.</p>
+          <div className="flex items-center justify-center gap-6 flex-wrap mb-4">
+            {['Cancel anytime', 'No tech setup for your parent', '7-day free trial'].map((item) => (
+              <div key={item} className="flex items-center gap-1.5 text-slate-500 text-sm">
+                <CheckIcon className="w-4 h-4 text-green-500 shrink-0" />
+                {item}
+              </div>
+            ))}
+          </div>
+          <Link href="/pricing" className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
+            View full plan details →
+          </Link>
         </div>
       </section>
 
