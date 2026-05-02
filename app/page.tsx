@@ -20,58 +20,29 @@ function CheckIcon({ className }: { className?: string }) {
   );
 }
 
-interface FormProps {
-  submitted: boolean;
-  loading: boolean;
-  error: string;
-  email: string;
-  setEmail: (v: string) => void;
-  name: string;
-  setName: (v: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
-}
-
-function WaitlistForm({ submitted, loading, error, email, setEmail, name, setName, onSubmit }: FormProps) {
-  if (submitted) {
-    return (
-      <div className="rounded-2xl p-6 text-center bg-green-50 border border-green-100">
-        <CheckIcon className="w-8 h-8 text-green-500 mx-auto mb-2" />
-        <p className="font-semibold text-green-800 text-lg">You&apos;re on the list!</p>
-        <p className="text-green-600 text-sm mt-1">We&apos;ll reach out the moment early access opens.</p>
-      </div>
-    );
-  }
-
-  return (
-    <form onSubmit={onSubmit} className="space-y-3">
-      <div className="flex flex-col sm:flex-row gap-3">
-        <input
-          type="text"
-          placeholder="Your name (optional)"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="flex-1 px-4 py-3 rounded-xl border border-slate-200 text-slate-800 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white placeholder:text-slate-400"
-        />
-        <input
-          type="email"
-          placeholder="Your email address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="flex-1 px-4 py-3 rounded-xl border border-slate-200 text-slate-800 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white placeholder:text-slate-400"
-        />
-      </div>
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold rounded-xl transition-colors text-base disabled:opacity-60 shadow-lg shadow-blue-600/20"
-      >
-        {loading ? 'Joining...' : 'Join the Early Access Waitlist →'}
-      </button>
-      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-    </form>
-  );
-}
+const PLANS = [
+  {
+    name: 'Essential',
+    priceId: 'price_1TSNDTKmZi8GlCMvjyQVQKwm',
+    price: '$19',
+    desc: '1 user',
+    highlight: false,
+  },
+  {
+    name: 'Family',
+    priceId: 'price_1TSNDUKmZi8GlCMvlhJ1XPTN',
+    price: '$49',
+    desc: 'Up to 2 users',
+    highlight: true,
+  },
+  {
+    name: 'Guardian',
+    priceId: 'price_1TSNDUKmZi8GlCMvVOPHZIuz',
+    price: '$99',
+    desc: 'Up to 5 users',
+    highlight: false,
+  },
+];
 
 const features = [
   {
@@ -135,56 +106,103 @@ const stats = [
 ];
 
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [modal, setModal] = useState<{ priceId: string; planName: string; price: string } | null>(null);
+  const [checkoutEmail, setCheckoutEmail] = useState('');
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleCheckout(e: React.FormEvent) {
     e.preventDefault();
-    if (!email) return;
-    setLoading(true);
-    setError('');
+    if (!modal) return;
+    setCheckoutLoading(true);
+    setCheckoutError('');
     try {
-      const url = process.env.NEXT_PUBLIC_SHEETS_URL;
-      if (url && url !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-        await fetch(url, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, name: name || '', timestamp: new Date().toISOString() }),
-        });
+      const res = await fetch('https://guardianinbox-production.up.railway.app/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ priceId: modal.priceId, email: checkoutEmail }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setCheckoutError('Something went wrong. Please try again.');
       }
-      setSubmitted(true);
     } catch {
-      setError('Something went wrong. Please try again.');
+      setCheckoutError('Something went wrong. Please try again.');
     } finally {
-      setLoading(false);
+      setCheckoutLoading(false);
     }
-  };
+  }
 
-  const formProps = { submitted, loading, error, email, setEmail, name, setName, onSubmit: handleSubmit };
+  function openModal(plan: typeof PLANS[0]) {
+    setModal({ priceId: plan.priceId, planName: plan.name, price: plan.price });
+    setCheckoutEmail('');
+    setCheckoutError('');
+  }
 
   return (
     <main className="min-h-screen bg-white antialiased">
 
+      {/* Checkout modal */}
+      {modal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
+            <h2 className="text-xl font-bold text-slate-900 mb-1">Start your free trial</h2>
+            <p className="text-slate-500 text-sm mb-6">
+              7 days free, then {modal.price}/month for the {modal.planName} plan. Cancel anytime.
+            </p>
+            <form onSubmit={handleCheckout} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Your email address</label>
+                <input
+                  type="email"
+                  required
+                  value={checkoutEmail}
+                  onChange={e => setCheckoutEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              {checkoutError && <p className="text-red-500 text-sm">{checkoutError}</p>}
+              <button
+                type="submit"
+                disabled={checkoutLoading}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors text-sm disabled:opacity-60"
+              >
+                {checkoutLoading ? 'Redirecting to checkout…' : 'Continue to checkout →'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setModal(null)}
+                className="w-full text-slate-400 hover:text-slate-600 text-sm transition-colors"
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Nav */}
-      <nav className="bg-white/95 backdrop-blur-sm border-b border-slate-100 px-6 py-4 sticky top-0 z-50">
+      <nav className="bg-white/95 backdrop-blur-sm border-b border-slate-100 px-6 py-4 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ShieldCheckIcon className="w-6 h-6 text-blue-600" />
             <span className="font-bold text-slate-900 text-lg tracking-tight">Guardian Inbox</span>
           </div>
           <div className="flex items-center gap-5">
-            <Link href="/pricing" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
+            <a href="#pricing" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
               Pricing
+            </a>
+            <Link href="/account/login" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
+              Sign in
             </Link>
             <a
-              href="#waitlist"
+              href="#pricing"
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm shadow-sm"
             >
-              Join Waitlist
+              Get Started
             </a>
           </div>
         </div>
@@ -197,7 +215,7 @@ export default function Home() {
           {/* Left */}
           <div>
             <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-              ⚡ Early Access — Coming Soon
+              🛡️ Protecting families since 2026
             </div>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 leading-[1.1] mb-5 tracking-tight">
               Your mom got another scam email.
@@ -207,9 +225,22 @@ export default function Home() {
               Guardian Inbox gives your parents a trusted AI companion they can reach simply by
               sending an email — no apps, no passwords, no learning curve. Just answers.
             </p>
-            <WaitlistForm {...formProps} />
-            <p className="text-slate-400 text-sm mt-3">No credit card required. Plans from $20/month at launch.</p>
-            <div className="mt-6 flex flex-wrap items-center gap-5">
+            <div className="flex flex-col sm:flex-row gap-3 mb-6">
+              <a
+                href="#pricing"
+                className="inline-block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base shadow-lg shadow-blue-600/20"
+              >
+                Start free trial →
+              </a>
+              <a
+                href="#how-it-works"
+                className="inline-block text-center bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold px-8 py-4 rounded-xl transition-colors text-base"
+              >
+                See how it works
+              </a>
+            </div>
+            <p className="text-slate-400 text-sm mb-4">7-day free trial. Plans from $19/month. Cancel anytime.</p>
+            <div className="flex flex-wrap items-center gap-5">
               {['Cancel anytime', 'No tech setup for your parent', 'Easy to gift online'].map((item) => (
                 <div key={item} className="flex items-center gap-1.5 text-slate-500 text-sm">
                   <CheckIcon className="w-4 h-4 text-green-500 shrink-0" />
@@ -232,7 +263,6 @@ export default function Home() {
                 unoptimized
               />
             </div>
-            {/* Floating scam badge */}
             <div className="absolute -bottom-5 -left-6 bg-white rounded-2xl shadow-xl border border-slate-100 p-4 max-w-[260px]">
               <div className="flex items-start gap-3">
                 <div className="w-9 h-9 bg-red-50 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
@@ -276,7 +306,7 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section className="bg-white px-6 py-20">
+      <section id="how-it-works" className="bg-white px-6 py-20">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">How it works</h2>
@@ -334,36 +364,41 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section className="bg-white px-6 py-20">
+      <section id="pricing" className="bg-white px-6 py-20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-            A gift they&apos;ll use every single day
+            Simple, transparent pricing
           </h2>
           <p className="text-slate-500 text-lg mb-12 max-w-xl mx-auto leading-relaxed">
-            Designed to be gifted — by adult children who want their parents to feel supported and
-            protected without asking them to learn new technology.
+            7-day free trial on every plan. No contracts. Cancel anytime.
           </p>
           <div className="grid sm:grid-cols-3 gap-5 mb-8">
-            {[
-              { name: 'Essential', price: '$19', desc: '1 user', highlight: false },
-              { name: 'Family', price: '$49', desc: 'Up to 2 users', highlight: true },
-              { name: 'Guardian', price: '$99', desc: 'Up to 5 users', highlight: false },
-            ].map(({ name, price, desc, highlight }) => (
+            {PLANS.map((plan) => (
               <div
-                key={name}
-                className={`rounded-2xl p-6 border ${
-                  highlight
-                    ? 'bg-blue-600 border-blue-600'
+                key={plan.name}
+                className={`rounded-2xl p-6 border flex flex-col ${
+                  plan.highlight
+                    ? 'bg-blue-600 border-blue-600 shadow-xl shadow-blue-600/20'
                     : 'bg-white border-slate-200 shadow-sm'
                 }`}
               >
-                {highlight && (
+                {plan.highlight && (
                   <div className="text-xs font-bold text-amber-400 mb-2 uppercase tracking-wide">Most Popular</div>
                 )}
-                <div className={`text-base font-semibold mb-1 ${highlight ? 'text-white' : 'text-slate-900'}`}>{name}</div>
-                <div className={`text-4xl font-extrabold mb-1 ${highlight ? 'text-white' : 'text-slate-900'}`}>{price}</div>
-                <div className={`text-sm mb-3 ${highlight ? 'text-blue-200' : 'text-slate-400'}`}>per month</div>
-                <div className={`text-sm ${highlight ? 'text-blue-100' : 'text-slate-500'}`}>{desc}</div>
+                <div className={`text-base font-semibold mb-1 ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.name}</div>
+                <div className={`text-4xl font-extrabold mb-1 ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.price}</div>
+                <div className={`text-sm mb-4 ${plan.highlight ? 'text-blue-200' : 'text-slate-400'}`}>per month</div>
+                <div className={`text-sm mb-6 flex-1 ${plan.highlight ? 'text-blue-100' : 'text-slate-500'}`}>{plan.desc}</div>
+                <button
+                  onClick={() => openModal(plan)}
+                  className={`w-full py-2.5 rounded-xl font-semibold text-sm transition-colors ${
+                    plan.highlight
+                      ? 'bg-white text-blue-600 hover:bg-blue-50'
+                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                  }`}
+                >
+                  Start free trial
+                </button>
               </div>
             ))}
           </div>
@@ -381,11 +416,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bottom CTA — split layout with second photo */}
-      <section id="waitlist" className="bg-slate-50 px-6 py-20">
+      {/* Bottom CTA */}
+      <section className="bg-slate-50 px-6 py-20">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
 
-          {/* Left — second photo */}
           <div className="hidden lg:block rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/80">
             <Image
               src="https://images.unsplash.com/photo-1758686254493-7b3e49a8f325?auto=format&fit=crop&w=900&q=80"
@@ -397,18 +431,31 @@ export default function Home() {
             />
           </div>
 
-          {/* Right — form */}
           <div>
             <ShieldCheckIcon className="w-10 h-10 text-blue-600 mb-5" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 leading-tight">
-              Be among the first families to protect and connect
+              Ready to protect someone you love?
             </h2>
             <p className="text-slate-500 text-lg mb-8 leading-relaxed">
-              Join our early access waitlist. We&apos;ll reach out the moment Guardian Inbox is
-              ready — waitlist members get priority access and an exclusive introductory rate.
+              Start your free 7-day trial today. No credit card surprises —
+              cancel anytime before the trial ends and you won&apos;t be charged.
             </p>
-            <WaitlistForm {...formProps} />
-            <p className="text-slate-400 text-sm mt-3">No spam, ever. No credit card required.</p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              {PLANS.map((plan) => (
+                <button
+                  key={plan.name}
+                  onClick={() => openModal(plan)}
+                  className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-colors ${
+                    plan.highlight
+                      ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20'
+                      : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200'
+                  }`}
+                >
+                  {plan.name} — {plan.price}
+                </button>
+              ))}
+            </div>
+            <p className="text-slate-400 text-sm mt-4">No spam, ever. No credit card required for trial.</p>
           </div>
 
         </div>
