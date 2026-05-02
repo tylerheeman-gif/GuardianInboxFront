@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 
 function ShieldCheckIcon({ className }: { className?: string }) {
   return (
@@ -21,6 +22,7 @@ function CheckIcon({ className }: { className?: string }) {
 const tiers = [
   {
     name: 'Essential',
+    priceId: 'price_1TSNDTKmZi8GlCMvjyQVQKwm',
     price: 19,
     description: 'Perfect for a single parent who needs a trusted companion in their inbox.',
     highlight: false,
@@ -31,10 +33,10 @@ const tiers = [
       'Standard response time',
       'Cancel anytime',
     ],
-    cta: 'Join Waitlist',
   },
   {
     name: 'Family',
+    priceId: 'price_1TSNDUKmZi8GlCMvlhJ1XPTN',
     price: 49,
     description: 'Ideal for couples or two parents who both deserve peace of mind.',
     highlight: true,
@@ -47,10 +49,10 @@ const tiers = [
       'Priority response time',
       'Cancel anytime',
     ],
-    cta: 'Join Waitlist',
   },
   {
     name: 'Guardian',
+    priceId: 'price_1TSNDUKmZi8GlCMvVOPHZIuz',
     price: 99,
     description: 'Full-service care for larger families or those who want the most.',
     highlight: false,
@@ -63,16 +65,84 @@ const tiers = [
       'White-glove customer service',
       'Cancel anytime',
     ],
-    cta: 'Join Waitlist',
   },
 ];
 
 export default function PricingPage() {
+  const [modal, setModal] = useState<{ priceId: string; planName: string } | null>(null);
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  async function handleCheckout(e: React.FormEvent) {
+    e.preventDefault();
+    if (!modal) return;
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('https://guardianinbox-production.up.railway.app/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ priceId: modal.priceId, email }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
+    } catch {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-white antialiased">
 
+      {/* Email modal */}
+      {modal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
+            <h2 className="text-xl font-bold text-slate-900 mb-1">Start your free trial</h2>
+            <p className="text-slate-500 text-sm mb-6">
+              7 days free, then ${tiers.find(t => t.priceId === modal.priceId)?.price}/month for the {modal.planName} plan. Cancel anytime.
+            </p>
+            <form onSubmit={handleCheckout} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Your email address</label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              {error && <p className="text-red-500 text-sm">{error}</p>}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors text-sm disabled:opacity-60"
+              >
+                {loading ? 'Redirecting to checkout…' : 'Continue to checkout →'}
+              </button>
+              <button
+                type="button"
+                onClick={() => { setModal(null); setEmail(''); setError(''); }}
+                className="w-full text-slate-400 hover:text-slate-600 text-sm transition-colors"
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Nav */}
-      <nav className="bg-white/95 backdrop-blur-sm border-b border-slate-100 px-6 py-4 sticky top-0 z-50">
+      <nav className="bg-white/95 backdrop-blur-sm border-b border-slate-100 px-6 py-4 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <ShieldCheckIcon className="w-6 h-6 text-blue-600" />
@@ -105,7 +175,7 @@ export default function PricingPage() {
       {/* Pricing cards */}
       <section className="bg-slate-50 px-6 py-16">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-6 items-stretch">
-          {tiers.map(({ name, price, description, highlight, badge, features, cta }) => (
+          {tiers.map(({ name, priceId, price, description, highlight, badge, features }) => (
             <div
               key={name}
               className={`relative rounded-3xl p-8 flex flex-col border ${
@@ -153,16 +223,16 @@ export default function PricingPage() {
                 ))}
               </ul>
 
-              <Link
-                href="/#waitlist"
-                className={`block text-center py-3 rounded-xl font-semibold text-sm transition-colors ${
+              <button
+                onClick={() => setModal({ priceId, planName: name })}
+                className={`block w-full text-center py-3 rounded-xl font-semibold text-sm transition-colors ${
                   highlight
                     ? 'bg-white text-blue-600 hover:bg-blue-50'
                     : 'bg-blue-600 text-white hover:bg-blue-700'
                 }`}
               >
-                {cta}
-              </Link>
+                Get started — free trial
+              </button>
             </div>
           ))}
         </div>
