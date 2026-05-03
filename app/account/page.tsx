@@ -12,7 +12,7 @@ const PLAN_LABELS: Record<string, string> = {
   guardian: 'Guardian — $99/mo',
 };
 
-interface User { id: number; email: string; name: string | null; }
+interface User { id: number; email: string; name: string | null; notes: string | null; }
 interface Account { email: string; plan: string; status: string; }
 
 export default function AccountPage() {
@@ -24,12 +24,14 @@ export default function AccountPage() {
 
   const [newEmail, setNewEmail] = useState('');
   const [newName, setNewName] = useState('');
+  const [newNotes, setNewNotes] = useState('');
   const [addError, setAddError] = useState('');
   const [addLoading, setAddLoading] = useState(false);
 
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editEmail, setEditEmail] = useState('');
   const [editName, setEditName] = useState('');
+  const [editNotes, setEditNotes] = useState('');
   const [editError, setEditError] = useState('');
 
   function getToken() {
@@ -67,13 +69,14 @@ export default function AccountPage() {
       const res = await fetch(`${API}/api/account/users`, {
         method: 'POST',
         headers: authHeaders(),
-        body: JSON.stringify({ email: newEmail, name: newName }),
+        body: JSON.stringify({ email: newEmail, name: newName, notes: newNotes }),
       });
       const data = await res.json();
       if (!res.ok) { setAddError(data.error); return; }
       setUsers(u => [...u, data.user]);
       setNewEmail('');
       setNewName('');
+      setNewNotes('');
     } catch {
       setAddError('Something went wrong.');
     } finally {
@@ -87,7 +90,7 @@ export default function AccountPage() {
       const res = await fetch(`${API}/api/account/users/${id}`, {
         method: 'PUT',
         headers: authHeaders(),
-        body: JSON.stringify({ email: editEmail, name: editName }),
+        body: JSON.stringify({ email: editEmail, name: editName, notes: editNotes }),
       });
       const data = await res.json();
       if (!res.ok) { setEditError(data.error); return; }
@@ -178,6 +181,13 @@ export default function AccountPage() {
                       placeholder="Email address"
                       className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
+                    <textarea
+                      value={editNotes}
+                      onChange={e => setEditNotes(e.target.value)}
+                      placeholder="About this person — interests, health notes, location, favorite sports teams… Claude will use this to personalize replies."
+                      rows={3}
+                      className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                    />
                     {editError && <p className="text-red-500 text-xs">{editError}</p>}
                     <div className="flex gap-2">
                       <button onClick={() => saveEdit(user.id)} className="text-sm bg-blue-600 text-white px-4 py-1.5 rounded-lg hover:bg-blue-700 transition-colors">Save</button>
@@ -189,10 +199,11 @@ export default function AccountPage() {
                     <div>
                       {user.name && <p className="text-sm font-medium text-slate-900">{user.name}</p>}
                       <p className="text-sm text-slate-500">{user.email}</p>
+                      {user.notes && <p className="text-xs text-slate-400 mt-1 leading-relaxed">{user.notes}</p>}
                     </div>
                     <div className="flex gap-3">
                       <button
-                        onClick={() => { setEditingId(user.id); setEditEmail(user.email); setEditName(user.name || ''); setEditError(''); }}
+                        onClick={() => { setEditingId(user.id); setEditEmail(user.email); setEditName(user.name || ''); setEditNotes(user.notes || ''); setEditError(''); }}
                         className="text-xs text-blue-600 hover:text-blue-700"
                       >
                         Edit
@@ -221,6 +232,13 @@ export default function AccountPage() {
                 onChange={e => setNewEmail(e.target.value)}
                 placeholder="Their email address"
                 className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <textarea
+                value={newNotes}
+                onChange={e => setNewNotes(e.target.value)}
+                placeholder="About this person — interests, health notes, location, favorite sports teams… Claude will use this to personalize replies."
+                rows={3}
+                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
               />
               {addError && <p className="text-red-500 text-xs">{addError}</p>}
               <button
