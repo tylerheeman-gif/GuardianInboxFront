@@ -32,6 +32,10 @@ export default function AdminPage() {
   const [mrr, setMrr] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  const [universalContext, setUniversalContext] = useState('');
+  const [contextSaving, setContextSaving] = useState(false);
+  const [contextSaved, setContextSaved] = useState(false);
+
   useEffect(() => {
     if (session) {
       setLoading(true);
@@ -42,8 +46,25 @@ export default function AdminPage() {
           setMrr(data.mrr || 0);
         })
         .finally(() => setLoading(false));
+
+      fetch('/api/admin/settings')
+        .then((r) => r.json())
+        .then((data) => setUniversalContext(data.universal_context || ''));
     }
   }, [session]);
+
+  async function saveContext() {
+    setContextSaving(true);
+    setContextSaved(false);
+    await fetch('/api/admin/settings', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: 'universal_context', value: universalContext }),
+    });
+    setContextSaving(false);
+    setContextSaved(true);
+    setTimeout(() => setContextSaved(false), 3000);
+  }
 
   if (status === 'loading') {
     return (
@@ -118,6 +139,30 @@ export default function AdminPage() {
               <div className="text-slate-500 text-sm">{label}</div>
             </div>
           ))}
+        </div>
+
+        {/* Universal Context */}
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-8">
+          <div className="flex items-center justify-between mb-1">
+            <h2 className="font-semibold text-slate-900">Universal Claude Prompt</h2>
+            {contextSaved && <span className="text-xs text-green-600 font-medium">Saved!</span>}
+          </div>
+          <p className="text-slate-400 text-sm mb-4">
+            Applied to every reply Claude sends, on top of any per-user notes. Edit to tune tone, style, or behavior globally.
+          </p>
+          <textarea
+            value={universalContext}
+            onChange={e => setUniversalContext(e.target.value)}
+            rows={6}
+            className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y font-mono"
+          />
+          <button
+            onClick={saveContext}
+            disabled={contextSaving}
+            className="mt-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg text-sm transition-colors disabled:opacity-60"
+          >
+            {contextSaving ? 'Saving…' : 'Save prompt'}
+          </button>
         </div>
 
         {/* Table */}
