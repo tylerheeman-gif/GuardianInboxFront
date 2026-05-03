@@ -24,7 +24,7 @@ const PLANS = [
   {
     name: 'Essential',
     priceId: 'price_1TSNDTKmZi8GlCMvjyQVQKwm',
-    price: '$19',
+    price: '$29',
     desc: '1 user',
     highlight: false,
   },
@@ -239,7 +239,7 @@ export default function Home() {
                 See how it works
               </a>
             </div>
-            <p className="text-slate-400 text-sm mb-4">7-day free trial. Plans from $19/month. Cancel anytime.</p>
+            <p className="text-slate-400 text-sm mb-4">7-day free trial. Plans from $29/month. Cancel anytime.</p>
             <div className="flex flex-wrap items-center gap-5">
               {['Cancel anytime', 'No tech setup for your parent', 'Easy to gift online'].map((item) => (
                 <div key={item} className="flex items-center gap-1.5 text-slate-500 text-sm">

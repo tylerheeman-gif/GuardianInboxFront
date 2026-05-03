@@ -23,7 +23,7 @@ const tiers = [
   {
     name: 'Essential',
     priceId: 'price_1TSNDTKmZi8GlCMvjyQVQKwm',
-    price: 19,
+    price: 29,
     description: 'Perfect for a single parent who needs a trusted companion in their inbox.',
     highlight: false,
     features: [
