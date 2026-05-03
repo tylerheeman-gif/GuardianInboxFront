@@ -23,7 +23,7 @@ function CheckIcon({ className }: { className?: string }) {
 const PLANS = [
   {
     name: 'Essential',
-    priceId: 'price_1TSNDTKmZi8GlCMvjyQVQKwm',
+    priceId: 'price_1TSnSUKmZi8GlCMvlPgmVA4H',
     price: '$29',
     desc: '1 user',
     highlight: false,

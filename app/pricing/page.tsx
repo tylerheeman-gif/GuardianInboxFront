@@ -22,7 +22,7 @@ function CheckIcon({ className }: { className?: string }) {
 const tiers = [
   {
     name: 'Essential',
-    priceId: 'price_1TSNDTKmZi8GlCMvjyQVQKwm',
+    priceId: 'price_1TSnSUKmZi8GlCMvlPgmVA4H',
     price: 29,
     description: 'Perfect for a single parent who needs a trusted companion in their inbox.',
     highlight: false,
