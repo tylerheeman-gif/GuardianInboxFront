@@ -14,7 +14,7 @@ export default function AccountLoginPage() {
     setLoading(true);
     setError('');
     try {
-      await fetch('https://guardianinbox-production.up.railway.app/auth/magic-link', {
+      await fetch('https://guardianinboxback-production.up.railway.app/auth/magic-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

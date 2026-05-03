@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-const API = 'https://guardianinbox-production.up.railway.app';
+const API = 'https://guardianinboxback-production.up.railway.app';
 
 const PLAN_LABELS: Record<string, string> = {
   essential: 'Essential — $19/mo',

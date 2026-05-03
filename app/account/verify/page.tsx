@@ -13,7 +13,7 @@ function VerifyInner() {
     const token = searchParams.get('token');
     if (!token) { setError('Invalid link.'); return; }
 
-    fetch(`https://guardianinbox-production.up.railway.app/auth/verify?token=${token}`)
+    fetch(`https://guardianinboxback-production.up.railway.app/auth/verify?token=${token}`)
       .then(r => r.json())
       .then(data => {
         if (data.token) {

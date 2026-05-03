@@ -117,7 +117,7 @@ export default function Home() {
     setCheckoutLoading(true);
     setCheckoutError('');
     try {
-      const res = await fetch('https://guardianinbox-production.up.railway.app/create-checkout-session', {
+      const res = await fetch('https://guardianinboxback-production.up.railway.app/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ priceId: modal.priceId, email: checkoutEmail }),

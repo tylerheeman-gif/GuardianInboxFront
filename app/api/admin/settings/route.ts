@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 
-const BACKEND = 'https://guardianinbox-production.up.railway.app';
+const BACKEND = 'https://guardianinboxback-production.up.railway.app';
 const ADMIN_SECRET = process.env.ADMIN_SECRET!;
 
 async function checkAuth() {
