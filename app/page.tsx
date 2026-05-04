@@ -148,9 +148,9 @@ export default function Home() {
       {modal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
-            <h2 className="text-xl font-bold text-slate-900 mb-1">Start your free trial</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-1">Get started</h2>
             <p className="text-slate-500 text-sm mb-6">
-              7 days free, then {modal.price}/month for the {modal.planName} plan. Cancel anytime.
+              {modal.price}/month for the {modal.planName} plan. Cancel anytime.
             </p>
             <form onSubmit={handleCheckout} className="space-y-4">
               <div>
@@ -230,7 +230,7 @@ export default function Home() {
                 href="#pricing"
                 className="inline-block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base shadow-lg shadow-blue-600/20"
               >
-                Start free trial →
+                Get started →
               </a>
               <a
                 href="#how-it-works"
@@ -239,7 +239,7 @@ export default function Home() {
                 See how it works
               </a>
             </div>
-            <p className="text-slate-400 text-sm mb-4">7-day free trial. Plans from $29/month. Cancel anytime.</p>
+            <p className="text-slate-400 text-sm mb-4">Plans from $29/month. Cancel anytime.</p>
             <div className="flex flex-wrap items-center gap-5">
               {['Cancel anytime', 'No tech setup for your parent', 'Easy to gift online'].map((item) => (
                 <div key={item} className="flex items-center gap-1.5 text-slate-500 text-sm">
@@ -370,7 +370,7 @@ export default function Home() {
             Simple, transparent pricing
           </h2>
           <p className="text-slate-500 text-lg mb-12 max-w-xl mx-auto leading-relaxed">
-            7-day free trial on every plan. No contracts. Cancel anytime.
+            No contracts. Cancel anytime.
           </p>
           <div className="grid sm:grid-cols-3 gap-5 mb-8">
             {PLANS.map((plan) => (
@@ -397,13 +397,13 @@ export default function Home() {
                       : 'bg-blue-600 text-white hover:bg-blue-700'
                   }`}
                 >
-                  Start free trial
+                  Get started
                 </button>
               </div>
             ))}
           </div>
           <div className="flex items-center justify-center gap-6 flex-wrap mb-4">
-            {['Cancel anytime', 'No tech setup for your parent', '7-day free trial'].map((item) => (
+            {['Cancel anytime', 'No tech setup for your parent', 'Easy to gift online'].map((item) => (
               <div key={item} className="flex items-center gap-1.5 text-slate-500 text-sm">
                 <CheckIcon className="w-4 h-4 text-green-500 shrink-0" />
                 {item}
@@ -437,8 +437,8 @@ export default function Home() {
               Ready to protect someone you love?
             </h2>
             <p className="text-slate-500 text-lg mb-8 leading-relaxed">
-              Start your free 7-day trial today. No credit card surprises —
-              cancel anytime before the trial ends and you won&apos;t be charged.
+              Give your parent a trusted companion in their inbox. No contracts —
+              cancel anytime.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               {PLANS.map((plan) => (
@@ -455,7 +455,7 @@ export default function Home() {
                 </button>
               ))}
             </div>
-            <p className="text-slate-400 text-sm mt-4">No spam, ever. No credit card required for trial.</p>
+            <p className="text-slate-400 text-sm mt-4">No spam, ever. Cancel anytime.</p>
           </div>
 
         </div>

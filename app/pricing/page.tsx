@@ -105,9 +105,9 @@ export default function PricingPage() {
       {modal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
-            <h2 className="text-xl font-bold text-slate-900 mb-1">Start your free trial</h2>
+            <h2 className="text-xl font-bold text-slate-900 mb-1">Get started</h2>
             <p className="text-slate-500 text-sm mb-6">
-              7 days free, then ${tiers.find(t => t.priceId === modal.priceId)?.price}/month for the {modal.planName} plan. Cancel anytime.
+              ${tiers.find(t => t.priceId === modal.priceId)?.price}/month for the {modal.planName} plan. Cancel anytime.
             </p>
             <form onSubmit={handleCheckout} className="space-y-4">
               <div>
@@ -231,7 +231,7 @@ export default function PricingPage() {
                     : 'bg-blue-600 text-white hover:bg-blue-700'
                 }`}
               >
-                Get started — free trial
+                Get started
               </button>
             </div>
           ))}
@@ -239,7 +239,7 @@ export default function PricingPage() {
 
         {/* Trust line */}
         <p className="text-center text-slate-400 text-sm mt-10">
-          All plans include a 7-day free trial. No credit card required to join the waitlist.
+          No contracts. Cancel anytime.
         </p>
       </section>
 
