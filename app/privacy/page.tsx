@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Privacy Policy — Guardian Inbox',
+  title: 'Privacy Policy | Guardian Inbox',
 };
 
 export default function PrivacyPage() {

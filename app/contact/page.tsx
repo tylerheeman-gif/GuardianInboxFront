@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Contact — Guardian Inbox',
+  title: 'Contact | Guardian Inbox',
 };
 
 export default function ContactPage() {

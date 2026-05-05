@@ -7,9 +7,9 @@ import Link from 'next/link';
 const API = 'https://guardianinboxback-production.up.railway.app';
 
 const PLAN_LABELS: Record<string, string> = {
-  essential: 'Essential — $19/mo',
-  family: 'Family — $49/mo',
-  guardian: 'Guardian — $99/mo',
+  essential: 'Essential ($19/mo)',
+  family: 'Family ($49/mo)',
+  guardian: 'Guardian ($99/mo)',
 };
 
 interface User { id: number; email: string; name: string | null; notes: string | null; }
@@ -184,7 +184,7 @@ export default function AccountPage() {
                     <textarea
                       value={editNotes}
                       onChange={e => setEditNotes(e.target.value)}
-                      placeholder="About this person — interests, health notes, location, favorite sports teams… Claude will use this to personalize replies."
+                      placeholder="About this person: interests, health notes, location, favorite sports teams… Claude will use this to personalize replies."
                       rows={3}
                       className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                     />
@@ -236,7 +236,7 @@ export default function AccountPage() {
               <textarea
                 value={newNotes}
                 onChange={e => setNewNotes(e.target.value)}
-                placeholder="About this person — interests, health notes, location, favorite sports teams… Claude will use this to personalize replies."
+                placeholder="About this person: interests, health notes, location, favorite sports teams… Claude will use this to personalize replies."
                 rows={3}
                 className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
               />

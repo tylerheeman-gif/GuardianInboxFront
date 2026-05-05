@@ -18,7 +18,7 @@ export default function SuccessPage() {
           You&apos;re all set!
         </h1>
         <p className="text-slate-500 text-lg leading-relaxed mb-8">
-          Welcome to Guardian Inbox. Check your email — we&apos;ve sent your parent their personal Guardian Inbox address so they can start using it right away.
+          Welcome to Guardian Inbox. Check your email. We&apos;ve sent your parent their personal Guardian Inbox address so they can start using it right away.
         </p>
 
         <div className="bg-slate-50 rounded-2xl p-6 mb-8 text-left space-y-3">

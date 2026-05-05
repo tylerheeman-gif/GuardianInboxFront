@@ -161,7 +161,7 @@ export default function PricingPage() {
       <section className="bg-white px-6 pt-20 pb-12 text-center">
         <div className="max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-            ⚡ Early Access — Coming Soon
+            ⚡ Early Access: Coming Soon
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
             Simple, transparent pricing
@@ -253,7 +253,7 @@ export default function PricingPage() {
             {[
               {
                 q: 'Does my parent need to set anything up?',
-                a: 'No. Once you sign up, we send your parent a welcome email with their new Guardian Inbox address. They just start emailing it — no accounts, no passwords, no apps.',
+                a: 'No. Once you sign up, we send your parent a welcome email with their new Guardian Inbox address. They just start emailing it. No accounts, no passwords, no apps.',
               },
               {
                 q: 'What counts as a "user"?',
@@ -269,7 +269,7 @@ export default function PricingPage() {
               },
               {
                 q: 'What is the weekly check-in email?',
-                a: 'On the Guardian plan, we send your parent a friendly weekly email with a few news stories, sports highlights, or topics we know they enjoy — keeping them informed and engaged without any effort on their part.',
+                a: 'On the Guardian plan, we send your parent a friendly weekly email with a few news stories, sports highlights, or topics we know they enjoy, keeping them informed and engaged without any effort on their part.',
               },
             ].map(({ q, a }) => (
               <div key={q} className="border-b border-slate-100 pb-8">

@@ -38,7 +38,7 @@ export default function AccountLoginPage() {
             <span className="font-bold text-slate-900 text-lg">Guardian Inbox</span>
           </Link>
           <h1 className="text-2xl font-bold text-slate-900 mb-2">Sign in to your account</h1>
-          <p className="text-slate-500 text-sm">We'll email you a link to sign in — no password needed.</p>
+          <p className="text-slate-500 text-sm">We'll email you a link to sign in. No password needed.</p>
         </div>
 
         {sent ? (

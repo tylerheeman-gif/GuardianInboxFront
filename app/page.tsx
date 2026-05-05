@@ -48,7 +48,7 @@ const features = [
   {
     icon: '🛡️',
     title: 'Scam & Fraud Detection',
-    desc: "Forward any suspicious email and get an immediate verdict. No jargon — just: \"This is a scam. Here's exactly what to do.\"",
+    desc: "Forward any suspicious email and get an immediate verdict. No jargon. Just: \"This is a scam. Here's exactly what to do.\"",
     highlight: true,
   },
   {
@@ -64,7 +64,7 @@ const features = [
   {
     icon: '💊',
     title: 'Health Questions',
-    desc: "Get clear information to bring to a doctor's appointment. Always a guide — never a replacement for professional care.",
+    desc: "Get clear information to bring to a doctor's appointment. Always a guide, never a replacement for professional care.",
   },
   {
     icon: '🍽️',
@@ -83,13 +83,13 @@ const steps = [
     n: '1',
     icon: '💳',
     title: 'You sign up in minutes',
-    desc: "Choose a plan online. We handle the rest — your parent doesn't have to lift a finger.",
+    desc: "Choose a plan online. We handle the rest. Your parent doesn't have to lift a finger.",
   },
   {
     n: '2',
     icon: '📬',
     title: 'They get a personal address',
-    desc: 'Your parent receives a dedicated Guardian Inbox email address — their direct line to a trusted AI companion.',
+    desc: 'Your parent receives a dedicated Guardian Inbox email address, their direct line to a trusted AI companion.',
   },
   {
     n: '3',
@@ -223,7 +223,7 @@ export default function Home() {
             </h1>
             <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-lg">
               Guardian Inbox gives your parents a trusted AI companion they can reach simply by
-              sending an email — no apps, no passwords, no learning curve. Just answers.
+              sending an email. No apps, no passwords, no learning curve. Just answers.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 mb-6">
               <a
@@ -250,7 +250,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right — photo + floating badge */}
+          {/* Right: photo + floating badge */}
           <div className="relative hidden lg:block">
             <div className="rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/80">
               <Image
@@ -437,8 +437,7 @@ export default function Home() {
               Ready to protect someone you love?
             </h2>
             <p className="text-slate-500 text-lg mb-8 leading-relaxed">
-              Give your parent a trusted companion in their inbox. No contracts —
-              cancel anytime.
+              Give your parent a trusted companion in their inbox. No contracts, cancel anytime.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               {PLANS.map((plan) => (
@@ -451,7 +450,7 @@ export default function Home() {
                       : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200'
                   }`}
                 >
-                  {plan.name} — {plan.price}
+                  {plan.name}: {plan.price}
                 </button>
               ))}
             </div>

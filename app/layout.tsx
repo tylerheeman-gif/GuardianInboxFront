@@ -6,11 +6,11 @@ import SessionProvider from './SessionProvider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Guardian Inbox — AI for Your Parents, Delivered by Email',
+  title: 'Guardian Inbox | AI for Your Parents, Delivered by Email',
   description:
-    'Give your parents a trusted AI companion they can reach by simply sending an email. Scam detection, news, sports scores, and more — no apps, no passwords, no learning curve.',
+    'Give your parents a trusted AI companion they can reach by simply sending an email. Scam detection, news, sports scores, and more. No apps, no passwords, no learning curve.',
   openGraph: {
-    title: 'Guardian Inbox — AI for Your Parents, Delivered by Email',
+    title: 'Guardian Inbox | AI for Your Parents, Delivered by Email',
     description:
       'Give your parents a trusted AI companion they can reach by email. No apps, no passwords, no learning curve.',
     url: 'https://guardianinbox.com',
