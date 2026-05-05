@@ -9,8 +9,7 @@ export default function AccountLoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function sendLink() {
     setLoading(true);
     setError('');
     try {
@@ -25,6 +24,11 @@ export default function AccountLoginPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    sendLink();
   }
 
   return (
@@ -49,7 +53,20 @@ export default function AccountLoginPage() {
               </svg>
             </div>
             <p className="font-semibold text-slate-900 mb-1">Check your email</p>
-            <p className="text-slate-500 text-sm">If <strong>{email}</strong> has a Guardian Inbox account, we sent a sign-in link. It expires in 24 hours.</p>
+            <p className="text-slate-500 text-sm mb-5">If <strong>{email}</strong> has a Guardian Inbox account, we sent a sign-in link. It expires in 24 hours.</p>
+            <button
+              onClick={sendLink}
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl transition-colors text-sm disabled:opacity-60 mb-2"
+            >
+              {loading ? 'Sending…' : 'Resend link'}
+            </button>
+            <button
+              onClick={() => { setSent(false); setEmail(''); }}
+              className="w-full text-slate-400 hover:text-slate-600 text-sm transition-colors"
+            >
+              Use a different email
+            </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
