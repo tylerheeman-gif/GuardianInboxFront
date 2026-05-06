@@ -13,6 +13,15 @@ interface Subscriber {
   created_at: string;
 }
 
+interface AuthorizedUser {
+  id: number;
+  email: string;
+  name: string | null;
+  account_email: string;
+  plan: string;
+  unsubscribed: boolean;
+}
+
 interface EmailVolume {
   email: string;
   today: string;
@@ -43,6 +52,7 @@ export default function AdminPage() {
   const [contextSaving, setContextSaving] = useState(false);
   const [contextSaved, setContextSaved] = useState(false);
   const [emailVolume, setEmailVolume] = useState<EmailVolume[]>([]);
+  const [authorizedUsers, setAuthorizedUsers] = useState<AuthorizedUser[]>([]);
 
   useEffect(() => {
     if (session) {
@@ -62,8 +72,21 @@ export default function AdminPage() {
       fetch('/api/admin/email-volume')
         .then((r) => r.json())
         .then((data) => setEmailVolume(data.volume || []));
+
+      fetch('/api/admin/users')
+        .then((r) => r.json())
+        .then((data) => setAuthorizedUsers(data.users || []));
     }
   }, [session]);
+
+  async function removeAuthorizedUser(id: number) {
+    await fetch('/api/admin/users', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+    setAuthorizedUsers(u => u.filter(user => user.id !== id));
+  }
 
   async function saveContext() {
     setContextSaving(true);
@@ -220,6 +243,55 @@ export default function AdminPage() {
                       </td>
                       <td className="px-6 py-4 text-sm text-slate-400">
                         {s.created_at ? new Date(s.created_at).toLocaleDateString() : '—'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
+        {/* Authorized Users */}
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden mt-8">
+          <div className="px-6 py-4 border-b border-slate-100">
+            <h2 className="font-semibold text-slate-900">Authorized Inbox Users</h2>
+          </div>
+          {authorizedUsers.length === 0 ? (
+            <div className="px-6 py-12 text-center text-slate-400 text-sm">No authorized users yet.</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-slate-100">
+                    {['User Email', 'Name', 'Account', 'Plan', ''].map((h) => (
+                      <th key={h} className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wide px-6 py-3">
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {authorizedUsers.map((u) => (
+                    <tr key={u.id} className="border-b border-slate-50 hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-4 text-sm text-slate-800 font-medium">
+                        {u.email}
+                        {u.unsubscribed && <span className="ml-2 text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">unsubscribed</span>}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-slate-500">{u.name || '—'}</td>
+                      <td className="px-6 py-4 text-sm text-slate-500">{u.account_email}</td>
+                      <td className="px-6 py-4">
+                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full capitalize ${PLAN_COLORS[u.plan] || 'bg-slate-100 text-slate-600'}`}>
+                          {u.plan}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <button
+                          onClick={() => removeAuthorizedUser(u.id)}
+                          className="text-xs text-red-400 hover:text-red-600 transition-colors"
+                        >
+                          Remove
+                        </button>
                       </td>
                     </tr>
                   ))}
