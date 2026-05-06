@@ -326,12 +326,33 @@ export default function Home() {
           <p className="text-white text-2xl sm:text-3xl font-light leading-relaxed mb-6">
             It&apos;s Tuesday morning. Your mom gets an email:
           </p>
-          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 mb-8 text-left max-w-lg mx-auto">
-            <p className="text-slate-300 text-sm font-mono leading-relaxed">
-              <span className="text-slate-500">From:</span> security-alert@amazon-verify-account.net<br />
-              <span className="text-slate-500">Subject:</span> Urgent: Your account has been suspended<br /><br />
-              <span className="text-red-400">Your Social Security number has been flagged for suspicious activity. You must call 1-800-555-0192 immediately to avoid account closure.</span>
-            </p>
+          <div className="bg-white rounded-2xl overflow-hidden shadow-2xl max-w-lg mx-auto mb-8 text-left">
+            {/* Email client chrome */}
+            <div className="bg-slate-100 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                <div className="w-3 h-3 rounded-full bg-[#28C840]" />
+              </div>
+              <span className="text-slate-400 text-xs mx-auto">Inbox</span>
+            </div>
+            {/* From field */}
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
+              <span className="text-slate-400 text-xs font-medium w-14 shrink-0">From</span>
+              <span className="text-slate-600 text-sm">security-alert@amazon-verify-account.net</span>
+            </div>
+            {/* Subject field */}
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
+              <span className="text-slate-400 text-xs font-medium w-14 shrink-0">Subject</span>
+              <span className="text-slate-800 text-sm font-semibold">Urgent: Your account has been suspended</span>
+            </div>
+            {/* Body */}
+            <div className="px-4 py-5">
+              <p className="text-slate-700 text-sm leading-relaxed">
+                Your Social Security number has been flagged for suspicious activity.
+                You must call <span className="text-red-600 font-semibold">1-800-555-0192</span> immediately to avoid permanent account closure.
+              </p>
+            </div>
           </div>
           <p className="text-slate-300 text-xl sm:text-2xl font-light leading-relaxed mb-4">
             She doesn&apos;t know it&apos;s a scam. She&apos;s home alone. And you&apos;re at work.
@@ -360,7 +381,7 @@ export default function Home() {
             <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
               <span className="text-slate-400 text-xs font-medium w-10 shrink-0">To</span>
               <div className="bg-blue-50 border border-blue-200 rounded-full px-3 py-0.5 text-blue-700 text-sm font-medium">
-                bonni@guardianinbox.com
+                susan@guardianinbox.com
               </div>
             </div>
             {/* Subject field */}
@@ -404,7 +425,7 @@ export default function Home() {
               <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">GI</div>
               <div>
                 <p className="text-blue-100 text-sm font-semibold">Guardian Inbox</p>
-                <p className="text-blue-400 text-xs">to bonni@email.com</p>
+                <p className="text-blue-400 text-xs">to susan@email.com</p>
               </div>
             </div>
             <p className="text-blue-100 text-sm leading-relaxed">
@@ -523,7 +544,7 @@ export default function Home() {
                           <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-bold shrink-0">B</div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-baseline justify-between">
-                              <span className="text-sm font-semibold text-slate-800">Bonni</span>
+                              <span className="text-sm font-semibold text-slate-800">Susan</span>
                               <span className="text-xs text-slate-400 shrink-0 ml-2">7:42 AM</span>
                             </div>
                             <p className="text-xs text-slate-400 truncate">to hello@guardianinbox.com</p>
@@ -543,11 +564,11 @@ export default function Home() {
                               <span className="text-sm font-semibold text-slate-800">Guardian Inbox</span>
                               <span className="text-xs text-slate-400 shrink-0 ml-2">7:44 AM</span>
                             </div>
-                            <p className="text-xs text-slate-400 truncate">to Bonni</p>
+                            <p className="text-xs text-slate-400 truncate">to Susan</p>
                           </div>
                         </div>
                         <div className="px-4 py-4 text-sm text-slate-700 space-y-2 leading-relaxed">
-                          <p>Hi Bonni! Good news -- the Rays won last night! They beat the Boston Red Sox 6 to 4.</p>
+                          <p>Hi Susan! Good news -- the Rays won last night! They beat the Boston Red Sox 6 to 4.</p>
                           <p>It was a great game. The Rays scored three runs in the seventh inning to pull ahead. Randy Arozarena had a big night with two hits and two runs batted in.</p>
                           <p>They are now 27 wins and 20 losses on the season. Things are looking up! Go Rays!</p>
                           <p className="text-slate-400 pt-1">Warmly, Guardian Inbox</p>
@@ -560,7 +581,7 @@ export default function Home() {
                           <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-bold shrink-0">B</div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-baseline justify-between">
-                              <span className="text-sm font-semibold text-slate-800">Bonni</span>
+                              <span className="text-sm font-semibold text-slate-800">Susan</span>
                               <span className="text-xs text-slate-400 shrink-0 ml-2">7:46 AM</span>
                             </div>
                             <p className="text-xs text-slate-400 truncate">to hello@guardianinbox.com</p>
@@ -580,11 +601,11 @@ export default function Home() {
                               <span className="text-sm font-semibold text-slate-800">Guardian Inbox</span>
                               <span className="text-xs text-slate-400 shrink-0 ml-2">7:47 AM</span>
                             </div>
-                            <p className="text-xs text-slate-400 truncate">to Bonni</p>
+                            <p className="text-xs text-slate-400 truncate">to Susan</p>
                           </div>
                         </div>
                         <div className="px-4 py-4 text-sm text-slate-700 space-y-2 leading-relaxed">
-                          <p>Hi Bonni! Zach Eflin is scheduled to start on the mound tonight for the Rays. He has been one of their most reliable pitchers this season.</p>
+                          <p>Hi Susan! Zach Eflin is scheduled to start on the mound tonight for the Rays. He has been one of their most reliable pitchers this season.</p>
                           <p>First pitch is at 6:40 PM Eastern Time, also against the Red Sox at Tropicana Field in St. Petersburg. Should be a fun one to watch!</p>
                           <p className="text-slate-400 pt-1">Warmly, Guardian Inbox</p>
                         </div>
