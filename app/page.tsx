@@ -281,15 +281,27 @@ export default function Home() {
       </section>
 
       {/* Email Examples */}
-      <section className="bg-white px-6 py-20 border-t border-slate-100">
+      <section className="bg-gradient-to-b from-slate-50 to-white px-6 py-20 border-t border-slate-100">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">See it in action</h2>
             <p className="text-slate-500 text-lg">Your parent emails a question. Guardian Inbox replies in minutes.</p>
           </div>
 
-          {/* Gmail window */}
-          <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
+          {/* Laptop mockup */}
+          <div className="relative">
+
+            {/* Screen lid */}
+            <div className="bg-[#1D1D1F] rounded-t-[16px] px-[14px] pt-[14px] pb-0 shadow-[0_30px_80px_rgba(0,0,0,0.35)]">
+              {/* Camera dot */}
+              <div className="flex justify-center mb-[10px]">
+                <div className="w-[6px] h-[6px] rounded-full bg-[#3A3A3C]" />
+              </div>
+
+              {/* Screen - Gmail window */}
+              <div className="rounded-t-[4px] overflow-hidden" style={{maxHeight: '520px', overflow: 'hidden'}}>
+                {/* Gmail window */}
+                <div className="rounded-none overflow-hidden border-0">
 
             {/* Browser chrome */}
             <div className="bg-[#DEE1E6] px-4 py-2.5 flex items-center gap-2">
@@ -411,11 +423,26 @@ export default function Home() {
                   </div>
 
                 </div>
-              </div>
-            </div>
-          </div>
+              </div>{/* end screen content */}
+            </div>{/* end screen */}
+          </div>{/* end Gmail window */}
 
-          <p className="text-center text-slate-400 text-sm mt-6">Your parent just sends an email. That is all there is to it.</p>
+            {/* Laptop base */}
+            <div className="relative">
+              {/* Hinge strip */}
+              <div className="h-[4px] bg-[#141414] w-full" />
+              {/* Base body */}
+              <div className="bg-gradient-to-b from-[#E0E0E0] to-[#C8C8C8] rounded-b-[10px] h-[52px] flex items-center justify-center shadow-[0_12px_30px_rgba(0,0,0,0.2)]">
+                {/* Trackpad */}
+                <div className="w-[140px] h-[36px] bg-[#D4D4D4] rounded-[6px] border border-[#BBBBBB] shadow-inner" />
+              </div>
+              {/* Base feet shadow */}
+              <div className="h-[6px] bg-gradient-to-b from-black/10 to-transparent rounded-b-[10px] -mx-1" />
+            </div>
+
+          </div>{/* end laptop */}
+
+          <p className="text-center text-slate-400 text-sm mt-10">Your parent just sends an email. That is all there is to it.</p>
         </div>
       </section>
 
