@@ -13,6 +13,13 @@ interface Subscriber {
   created_at: string;
 }
 
+interface EmailVolume {
+  email: string;
+  today: string;
+  last_7_days: string;
+  all_time: string;
+}
+
 const PLAN_COLORS: Record<string, string> = {
   essential: 'bg-slate-100 text-slate-700',
   family: 'bg-blue-100 text-blue-700',
@@ -35,6 +42,7 @@ export default function AdminPage() {
   const [universalContext, setUniversalContext] = useState('');
   const [contextSaving, setContextSaving] = useState(false);
   const [contextSaved, setContextSaved] = useState(false);
+  const [emailVolume, setEmailVolume] = useState<EmailVolume[]>([]);
 
   useEffect(() => {
     if (session) {
@@ -50,6 +58,10 @@ export default function AdminPage() {
       fetch('/api/admin/settings')
         .then((r) => r.json())
         .then((data) => setUniversalContext(data.universal_context || ''));
+
+      fetch('/api/admin/email-volume')
+        .then((r) => r.json())
+        .then((data) => setEmailVolume(data.volume || []));
     }
   }, [session]);
 
@@ -216,6 +228,41 @@ export default function AdminPage() {
             </div>
           )}
         </div>
+
+        {/* Email Volume */}
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden mt-8">
+          <div className="px-6 py-4 border-b border-slate-100">
+            <h2 className="font-semibold text-slate-900">Email Volume by User</h2>
+          </div>
+          {emailVolume.length === 0 ? (
+            <div className="px-6 py-12 text-center text-slate-400 text-sm">No email activity yet.</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-slate-100">
+                    {['User Email', 'Today', 'Last 7 Days', 'All Time'].map((h) => (
+                      <th key={h} className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wide px-6 py-3">
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {emailVolume.map((v) => (
+                    <tr key={v.email} className="border-b border-slate-50 hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-4 text-sm text-slate-800 font-medium">{v.email}</td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{v.today}</td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{v.last_7_days}</td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{v.all_time}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
       </div>
     </div>
   );
