@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -169,54 +169,8 @@ export default function Home() {
   const [checkoutEmail, setCheckoutEmail] = useState('');
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
-  const CLONES = 3;
-  const extended = [
-    ...testimonials.slice(-CLONES),
-    ...testimonials,
-    ...testimonials.slice(0, CLONES),
-  ];
-
-  const [tPos, setTPos] = useState(CLONES);
-  const [tTransition, setTTransition] = useState(true);
-  const [tSlideWidth, setTSlideWidth] = useState(0);
-  const tContainerRef = useRef<HTMLDivElement>(null);
-  const tPosRef = useRef(CLONES);
-  tPosRef.current = tPos;
-
-  const tRealIdx = ((tPos - CLONES) % testimonials.length + testimonials.length) % testimonials.length;
-
-  useEffect(() => {
-    function measure() {
-      if (!tContainerRef.current) return;
-      const visible = window.innerWidth >= 640 ? 3 : 1;
-      setTSlideWidth(tContainerRef.current.offsetWidth / visible);
-    }
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, []);
-
-  useEffect(() => {
-    const t = setInterval(() => setTPos(p => p + 1), 15000);
-    return () => clearInterval(t);
-  }, []);
-
-  function handleTrackTransitionEnd() {
-    const pos = tPosRef.current;
-    if (pos >= CLONES + testimonials.length) {
-      setTTransition(false);
-      setTPos(pos - testimonials.length);
-    } else if (pos < CLONES) {
-      setTTransition(false);
-      setTPos(pos + testimonials.length);
-    }
-  }
-
-  useEffect(() => {
-    if (!tTransition) {
-      requestAnimationFrame(() => requestAnimationFrame(() => setTTransition(true)));
-    }
-  }, [tTransition]);
+  const [tHovered, setTHovered] = useState(false);
+  const doubled = [...testimonials, ...testimonials];
 
   async function handleCheckout(e: React.FormEvent) {
     e.preventDefault();
@@ -689,22 +643,28 @@ export default function Home() {
             <p className="text-slate-500 text-lg">What it feels like when your parent has Guardian Inbox.</p>
           </div>
 
-          {/* Carousel track */}
-          <div ref={tContainerRef} className="overflow-hidden mb-8">
+          <style>{`
+            @keyframes testimonial-crawl {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+          `}</style>
+
+          {/* Crawl track */}
+          <div
+            className="overflow-hidden"
+            onMouseEnter={() => setTHovered(true)}
+            onMouseLeave={() => setTHovered(false)}
+          >
             <div
-              className={tTransition ? 'transition-transform duration-500 ease-in-out' : ''}
               style={{
                 display: 'flex',
-                transform: tSlideWidth ? `translateX(${-(tPos * tSlideWidth)}px)` : undefined,
+                animation: 'testimonial-crawl 60s linear infinite',
+                animationPlayState: tHovered ? 'paused' : 'running',
               }}
-              onTransitionEnd={handleTrackTransitionEnd}
             >
-              {extended.map((t, i) => (
-                <div
-                  key={i}
-                  style={{ width: tSlideWidth || undefined, flexShrink: 0 }}
-                  className="px-2.5"
-                >
+              {doubled.map((t, i) => (
+                <div key={i} style={{ width: '360px', flexShrink: 0 }} className="px-3">
                   <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col h-full">
                     <div className="flex gap-1 mb-4">
                       {[...Array(5)].map((_, s) => (
@@ -727,36 +687,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Controls */}
-          <div className="flex items-center justify-center gap-3">
-            <button
-              onClick={() => setTPos(p => p - 1)}
-              className="w-8 h-8 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-400 hover:text-slate-700 transition-colors"
-              aria-label="Previous"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            </button>
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => { setTTransition(true); setTPos(CLONES + i); }}
-                className={`h-2 rounded-full transition-all duration-300 ${i === tRealIdx ? 'bg-blue-600 w-4' : 'bg-slate-300 w-2 hover:bg-slate-400'}`}
-                aria-label={`Go to testimonial ${i + 1}`}
-              />
-            ))}
-            <button
-              onClick={() => setTPos(p => p + 1)}
-              className="w-8 h-8 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-400 hover:text-slate-700 transition-colors"
-              aria-label="Next"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-              </svg>
-            </button>
           </div>
 
         </div>
