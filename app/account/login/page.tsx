@@ -35,11 +35,8 @@ export default function AccountLoginPage() {
     <main className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-blue-600">
-              <path fillRule="evenodd" d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.718-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
-            </svg>
-            <span className="font-bold text-slate-900 text-lg">Guardian Inbox</span>
+          <Link href="/" className="inline-block mb-6">
+            <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-10 mx-auto" />
           </Link>
           <h1 className="text-2xl font-bold text-slate-900 mb-2">Sign in to your account</h1>
           <p className="text-slate-500 text-sm">We'll email you a link to sign in. No password needed.</p>

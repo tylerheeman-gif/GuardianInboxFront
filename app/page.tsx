@@ -187,10 +187,9 @@ export default function Home() {
       {/* Nav */}
       <nav className="bg-white/95 backdrop-blur-sm border-b border-slate-100 px-6 py-4 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <ShieldCheckIcon className="w-6 h-6 text-blue-600" />
-            <span className="font-bold text-slate-900 text-lg tracking-tight">Guardian Inbox</span>
-          </div>
+          <Link href="/">
+            <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-9" />
+          </Link>
           <div className="flex items-center gap-5">
             <a href="#pricing" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
               Pricing
@@ -463,10 +462,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white border-t border-slate-100 px-6 py-10">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div className="flex items-center gap-2">
-            <ShieldCheckIcon className="w-5 h-5 text-blue-600" />
-            <span className="font-bold text-slate-800">Guardian Inbox</span>
-          </div>
+          <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-7" />
           <p className="text-slate-400 text-sm">© 2026 Guardian Inbox. All rights reserved.</p>
           <div className="flex gap-6 text-sm text-slate-400">
             <Link href="/privacy" className="hover:text-slate-700 transition-colors">Privacy Policy</Link>
