@@ -326,9 +326,77 @@ export default function Home() {
           <p className="text-slate-300 text-xl sm:text-2xl font-light leading-relaxed mb-4">
             She doesn&apos;t know it&apos;s a scam. She&apos;s home alone. And you&apos;re at work.
           </p>
-          <div className="w-px h-12 bg-slate-700 mx-auto my-8" />
-          <p className="text-slate-400 text-lg mb-4">With Guardian Inbox, she forwards it and gets back:</p>
+          {/* Step arrow */}
+          <div className="flex flex-col items-center my-8 gap-2">
+            <div className="w-px h-8 bg-slate-700" />
+            <div className="bg-slate-800 border border-slate-700 rounded-full px-4 py-1.5 text-slate-400 text-xs font-semibold uppercase tracking-widest">
+              She hits forward
+            </div>
+            <div className="w-px h-8 bg-slate-700" />
+          </div>
+
+          {/* Forward compose window */}
+          <div className="bg-white rounded-2xl overflow-hidden shadow-2xl max-w-lg mx-auto mb-6 text-left">
+            {/* Email client chrome */}
+            <div className="bg-slate-100 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                <div className="w-3 h-3 rounded-full bg-[#28C840]" />
+              </div>
+              <span className="text-slate-400 text-xs mx-auto">New Message</span>
+            </div>
+            {/* To field */}
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
+              <span className="text-slate-400 text-xs font-medium w-10 shrink-0">To</span>
+              <div className="bg-blue-50 border border-blue-200 rounded-full px-3 py-0.5 text-blue-700 text-sm font-medium">
+                bonni@guardianinbox.com
+              </div>
+            </div>
+            {/* Subject field */}
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
+              <span className="text-slate-400 text-xs font-medium w-10 shrink-0">Subject</span>
+              <span className="text-slate-700 text-sm">Fwd: Urgent: Your account has been suspended</span>
+            </div>
+            {/* Body */}
+            <div className="px-4 py-4">
+              <p className="text-slate-400 text-xs mb-3 border-b border-slate-100 pb-3">Is this real? Should I be worried?</p>
+              <div className="text-slate-400 text-xs font-mono leading-relaxed">
+                <p className="mb-1">-------- Forwarded Message --------</p>
+                <p><span className="text-slate-500">From:</span> security-alert@amazon-verify-account.net</p>
+                <p className="mb-2"><span className="text-slate-500">Subject:</span> Urgent: Your account has been suspended</p>
+                <p className="text-slate-400">Your Social Security number has been flagged...</p>
+              </div>
+            </div>
+            {/* Send button */}
+            <div className="px-4 pb-4">
+              <div className="inline-flex items-center gap-2 bg-blue-600 rounded-lg px-4 py-2">
+                <span className="text-white text-sm font-semibold">Send</span>
+                <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Reply arrives arrow */}
+          <div className="flex flex-col items-center my-6 gap-2">
+            <div className="w-px h-8 bg-slate-700" />
+            <div className="bg-blue-600/20 border border-blue-600/40 rounded-full px-4 py-1.5 text-blue-400 text-xs font-semibold uppercase tracking-widest">
+              Reply arrives in minutes
+            </div>
+            <div className="w-px h-8 bg-slate-700" />
+          </div>
+
+          {/* Guardian Inbox reply */}
           <div className="bg-blue-900/40 border border-blue-700/50 rounded-2xl p-6 mb-8 text-left max-w-lg mx-auto">
+            <div className="flex items-center gap-3 mb-4 pb-4 border-b border-blue-700/40">
+              <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">GI</div>
+              <div>
+                <p className="text-blue-100 text-sm font-semibold">Guardian Inbox</p>
+                <p className="text-blue-400 text-xs">to bonni@email.com</p>
+              </div>
+            </div>
             <p className="text-blue-100 text-sm leading-relaxed">
               <span className="font-semibold">Hi there!</span> This email is a scam. The real Amazon will never ask you to call a phone number or provide your Social Security number. You are completely safe. Just delete this email and do nothing else. Let me know if you have any other questions!<br /><br />
               <span className="text-blue-300">Warmly, Guardian Inbox</span>
