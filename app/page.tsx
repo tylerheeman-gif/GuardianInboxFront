@@ -95,7 +95,7 @@ const steps = [
     n: '3',
     icon: '✉️',
     title: 'They just send an email',
-    desc: 'Forward a suspicious message. Ask about a game. Get a recipe. A clear, warm reply arrives right back in their inbox.',
+    desc: 'That is it. No tutorial. No password. No app. They write an email exactly like they always have, and a warm reply arrives in minutes.',
   },
 ];
 
@@ -263,12 +263,18 @@ export default function Home() {
               </a>
             </div>
             <p className="text-slate-400 text-sm mb-4">Plans from $29/month. 7-day free trial. Cancel anytime.</p>
-            <div className="flex flex-wrap items-center gap-5">
-              {['No tech setup for your parent', 'Works with any email they already use', 'Easy to gift online'].map((item) => (
+            <div className="flex flex-wrap items-center gap-5 mb-5">
+              {['No tech setup for your parent', 'No new account for them to create', 'Easy to gift online'].map((item) => (
                 <div key={item} className="flex items-center gap-1.5 text-slate-500 text-sm">
                   <CheckIcon className="w-4 h-4 text-green-500 shrink-0" />
                   {item}
                 </div>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold mr-1">Works with</span>
+              {['Gmail', 'Yahoo', 'AOL', 'Outlook', 'iCloud', 'any inbox'].map((p) => (
+                <span key={p} className="text-xs font-medium bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">{p}</span>
               ))}
             </div>
           </div>
@@ -526,6 +532,78 @@ export default function Home() {
           <p className="text-center text-slate-400 text-sm mt-10">
             If they can send an email, they are already set up.
           </p>
+        </div>
+      </section>
+
+      {/* Zero effort section */}
+      <section className="bg-slate-900 px-6 py-24">
+        <div className="max-w-5xl mx-auto">
+
+          <div className="text-center mb-16">
+            <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4">The bar is zero</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight">
+              Your parent doesn&apos;t learn<br className="hidden sm:block" /> a single new thing.
+            </h2>
+            <p className="text-slate-400 text-xl max-w-2xl mx-auto leading-relaxed">
+              Every other solution asks your parent to download, sign up, learn, or remember something.
+              Guardian Inbox asks nothing.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-6 items-start mb-12">
+
+            {/* Not required */}
+            <div className="bg-slate-800 rounded-2xl p-8">
+              <p className="text-slate-500 text-xs font-semibold uppercase tracking-widest mb-6">Not required from your parent</p>
+              <div className="space-y-4">
+                {[
+                  'Download an app',
+                  'Create a new account',
+                  'Remember a password',
+                  'Own a smartphone',
+                  'Watch a tutorial',
+                  'Call tech support',
+                  'Know what AI is',
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center shrink-0">
+                      <svg className="w-3 h-3 text-red-400" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className="text-slate-400 text-base line-through decoration-slate-600">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* What they need */}
+            <div className="flex flex-col gap-5">
+              <div className="bg-blue-600 rounded-2xl p-8 text-center">
+                <p className="text-blue-200 text-xs font-semibold uppercase tracking-widest mb-4">All they need</p>
+                <p className="text-white text-5xl font-extrabold mb-3">Their inbox.</p>
+                <p className="text-blue-200 text-lg">The one they&apos;ve used for years.</p>
+              </div>
+              <div className="bg-slate-800 rounded-2xl p-6">
+                <p className="text-slate-500 text-xs font-semibold uppercase tracking-widest mb-4 text-center">Works with every email provider</p>
+                <div className="grid grid-cols-3 gap-3">
+                  {['Gmail', 'Yahoo Mail', 'AOL Mail', 'Outlook', 'iCloud Mail', 'Any inbox'].map((provider) => (
+                    <div key={provider} className="bg-slate-700 rounded-xl px-3 py-2.5 text-slate-300 text-sm text-center font-medium">
+                      {provider}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="text-center">
+            <p className="text-slate-400 text-xl italic">
+              &ldquo;If they can type &lsquo;Did the Rays win?&rsquo; and press send,<br className="hidden sm:block" /> they can use Guardian Inbox.&rdquo;
+            </p>
+          </div>
+
         </div>
       </section>
 
