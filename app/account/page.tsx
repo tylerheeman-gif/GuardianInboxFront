@@ -141,7 +141,7 @@ export default function AccountPage() {
       <nav className="bg-white border-b border-slate-100 px-6 py-4">
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <Link href="/">
-            <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-[168px]" />
+            <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-[84px]" />
           </Link>
           <button onClick={signOut} className="text-sm text-slate-400 hover:text-slate-600 transition-colors">
             Sign out

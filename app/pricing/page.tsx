@@ -145,7 +145,7 @@ export default function PricingPage() {
       <nav className="bg-white/95 backdrop-blur-sm border-b border-slate-100 px-6 py-4 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/">
-            <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-[168px]" />
+            <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-[84px]" />
           </Link>
           <Link
             href="/#waitlist"
