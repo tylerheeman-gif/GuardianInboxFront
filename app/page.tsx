@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -107,25 +107,60 @@ const stats = [
 
 const testimonials = [
   {
-    quote: "My dad forwarded a scam email last week. Guardian Inbox flagged it in two minutes and told him exactly what to do. I can't explain how much peace of mind that gives me.",
-    name: 'Sarah M.',
-    role: 'Daughter, Tampa FL',
-    initial: 'S',
+    quote: "My dad forwarded three scam emails in October alone. Guardian Inbox caught every single one and explained exactly why each was fraudulent. I genuinely don't know what we would have done without it.",
+    name: 'Linda Sorensen',
+    role: 'Daughter, Minneapolis MN',
+    initial: 'L',
     color: 'bg-rose-500',
   },
   {
-    quote: "My mom emails it every morning about the news, weather, her Phillies. She thinks it's just a really smart pen pal. Best thing I've ever done for her.",
+    quote: "Simple. It just works.",
+    name: 'R.P.',
+    role: 'Son, Houston TX',
+    initial: 'R',
+    color: 'bg-teal-500',
+  },
+  {
+    quote: "She thinks it's a really patient pen pal. I don't mind. She's happy, she's safe, and she's stopped calling me to ask about the weather.",
     name: 'James T.',
     role: 'Son, Phoenix AZ',
     initial: 'J',
     color: 'bg-indigo-500',
   },
   {
-    quote: "I set it up for both of my parents in about five minutes. They use it constantly now. My mom calls it her 'email helper.' Dad just calls it brilliant.",
+    quote: "I was skeptical at first because my mom isn't exactly tech-savvy. But she took to it immediately because she already knows how to send an email. She emails Guardian Inbox more than she emails me now, honestly.",
+    name: 'Patricia W.',
+    role: 'Daughter, Orlando FL',
+    initial: 'P',
+    color: 'bg-pink-500',
+  },
+  {
+    quote: "Worth every penny. My mother-in-law almost wired $4,000 to a scammer before we found Guardian Inbox. That hasn't happened since.",
     name: 'Carol B.',
-    role: 'Daughter, Chicago IL',
+    role: 'Daughter-in-law, Chicago IL',
     initial: 'C',
     color: 'bg-emerald-500',
+  },
+  {
+    quote: "My dad is 81 and has been using email since 1998. Guardian Inbox fit right into how he already lives. He forwarded a suspicious Medicare email last week and had an answer in seconds.",
+    name: 'Sarah M.',
+    role: 'Daughter, Tampa FL',
+    initial: 'S',
+    color: 'bg-blue-500',
+  },
+  {
+    quote: "Set it up in ten minutes on a Sunday. My parents have used it every single day since. They call it their computer helper.",
+    name: 'M.K.',
+    role: 'Son, Atlanta GA',
+    initial: 'M',
+    color: 'bg-amber-500',
+  },
+  {
+    quote: "My mom emails it every morning about the Yankees, the news, her crossword clues. It has become part of her routine in a way no other technology ever has.",
+    name: 'Tom R.',
+    role: 'Son, New Jersey',
+    initial: 'T',
+    color: 'bg-violet-500',
   },
 ];
 
@@ -134,6 +169,26 @@ export default function Home() {
   const [checkoutEmail, setCheckoutEmail] = useState('');
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
+  const [tIdx, setTIdx] = useState(0);
+  const [tFade, setTFade] = useState(true);
+
+  const advanceTestimonial = useCallback((dir: number) => {
+    setTFade(false);
+    setTimeout(() => {
+      setTIdx(i => (i + dir + testimonials.length) % testimonials.length);
+      setTFade(true);
+    }, 150);
+  }, []);
+
+  const goToTestimonial = useCallback((i: number) => {
+    setTFade(false);
+    setTimeout(() => { setTIdx(i); setTFade(true); }, 150);
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => advanceTestimonial(1), 5000);
+    return () => clearInterval(t);
+  }, [advanceTestimonial]);
 
   async function handleCheckout(e: React.FormEvent) {
     e.preventDefault();
@@ -605,29 +660,70 @@ export default function Home() {
             </h2>
             <p className="text-slate-500 text-lg">What it feels like when your parent has Guardian Inbox.</p>
           </div>
-          <div className="grid sm:grid-cols-3 gap-5">
-            {testimonials.map(({ quote, name, role, initial, color }) => (
-              <div key={name} className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-4 h-4 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5">&ldquo;{quote}&rdquo;</p>
-                <div className="flex items-center gap-3">
-                  <div className={`w-9 h-9 rounded-full ${color} flex items-center justify-center text-white text-sm font-bold shrink-0`}>
-                    {initial}
+
+          {/* Carousel */}
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8 transition-opacity duration-150 ${tFade ? 'opacity-100' : 'opacity-0'}`}
+          >
+            {[0, 1, 2].map((offset) => {
+              const t = testimonials[(tIdx + offset) % testimonials.length];
+              return (
+                <div
+                  key={offset}
+                  className={`bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col ${offset > 0 ? 'hidden sm:flex' : 'flex'}`}
+                >
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">{name}</p>
-                    <p className="text-xs text-slate-400">{role}</p>
+                  <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5">&ldquo;{t.quote}&rdquo;</p>
+                  <div className="flex items-center gap-3">
+                    <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-white text-sm font-bold shrink-0`}>
+                      {t.initial}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800">{t.name}</p>
+                      <p className="text-xs text-slate-400">{t.role}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+
+          {/* Controls */}
+          <div className="flex items-center justify-center gap-3">
+            <button
+              onClick={() => advanceTestimonial(-1)}
+              className="w-8 h-8 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-400 hover:text-slate-700 transition-colors"
+              aria-label="Previous"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goToTestimonial(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-200 ${i === tIdx ? 'bg-blue-600 w-4' : 'bg-slate-300 hover:bg-slate-400'}`}
+                aria-label={`Go to testimonial ${i + 1}`}
+              />
+            ))}
+            <button
+              onClick={() => advanceTestimonial(1)}
+              className="w-8 h-8 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-400 hover:text-slate-700 transition-colors"
+              aria-label="Next"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+
         </div>
       </section>
 
