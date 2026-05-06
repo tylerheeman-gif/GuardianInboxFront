@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -169,26 +169,54 @@ export default function Home() {
   const [checkoutEmail, setCheckoutEmail] = useState('');
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
-  const [tIdx, setTIdx] = useState(0);
-  const [tFade, setTFade] = useState(true);
+  const CLONES = 3;
+  const extended = [
+    ...testimonials.slice(-CLONES),
+    ...testimonials,
+    ...testimonials.slice(0, CLONES),
+  ];
 
-  const advanceTestimonial = useCallback((dir: number) => {
-    setTFade(false);
-    setTimeout(() => {
-      setTIdx(i => (i + dir + testimonials.length) % testimonials.length);
-      setTFade(true);
-    }, 150);
-  }, []);
+  const [tPos, setTPos] = useState(CLONES);
+  const [tTransition, setTTransition] = useState(true);
+  const [tSlideWidth, setTSlideWidth] = useState(0);
+  const tContainerRef = useRef<HTMLDivElement>(null);
+  const tPosRef = useRef(CLONES);
+  tPosRef.current = tPos;
 
-  const goToTestimonial = useCallback((i: number) => {
-    setTFade(false);
-    setTimeout(() => { setTIdx(i); setTFade(true); }, 150);
+  const tRealIdx = ((tPos - CLONES) % testimonials.length + testimonials.length) % testimonials.length;
+
+  useEffect(() => {
+    function measure() {
+      if (!tContainerRef.current) return;
+      const visible = window.innerWidth >= 640 ? 3 : 1;
+      setTSlideWidth(tContainerRef.current.offsetWidth / visible);
+    }
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
   }, []);
 
   useEffect(() => {
-    const t = setInterval(() => advanceTestimonial(1), 5000);
+    const t = setInterval(() => setTPos(p => p + 1), 5000);
     return () => clearInterval(t);
-  }, [advanceTestimonial]);
+  }, []);
+
+  function handleTrackTransitionEnd() {
+    const pos = tPosRef.current;
+    if (pos >= CLONES + testimonials.length) {
+      setTTransition(false);
+      setTPos(pos - testimonials.length);
+    } else if (pos < CLONES) {
+      setTTransition(false);
+      setTPos(pos + testimonials.length);
+    }
+  }
+
+  useEffect(() => {
+    if (!tTransition) {
+      requestAnimationFrame(() => requestAnimationFrame(() => setTTransition(true)));
+    }
+  }, [tTransition]);
 
   async function handleCheckout(e: React.FormEvent) {
     e.preventDefault();
@@ -661,43 +689,50 @@ export default function Home() {
             <p className="text-slate-500 text-lg">What it feels like when your parent has Guardian Inbox.</p>
           </div>
 
-          {/* Carousel */}
-          <div
-            className={`grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8 transition-opacity duration-150 ${tFade ? 'opacity-100' : 'opacity-0'}`}
-          >
-            {[0, 1, 2].map((offset) => {
-              const t = testimonials[(tIdx + offset) % testimonials.length];
-              return (
+          {/* Carousel track */}
+          <div ref={tContainerRef} className="overflow-hidden mb-8">
+            <div
+              className={tTransition ? 'transition-transform duration-500 ease-in-out' : ''}
+              style={{
+                display: 'flex',
+                transform: tSlideWidth ? `translateX(${-(tPos * tSlideWidth)}px)` : undefined,
+              }}
+              onTransitionEnd={handleTrackTransitionEnd}
+            >
+              {extended.map((t, i) => (
                 <div
-                  key={offset}
-                  className={`bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col ${offset > 0 ? 'hidden sm:flex' : 'flex'}`}
+                  key={i}
+                  style={{ width: tSlideWidth || undefined, flexShrink: 0 }}
+                  className="px-2.5"
                 >
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-4 h-4 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5">&ldquo;{t.quote}&rdquo;</p>
-                  <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-white text-sm font-bold shrink-0`}>
-                      {t.initial}
+                  <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col h-full">
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(5)].map((_, s) => (
+                        <svg key={s} className="w-4 h-4 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold text-slate-800">{t.name}</p>
-                      <p className="text-xs text-slate-400">{t.role}</p>
+                    <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5">&ldquo;{t.quote}&rdquo;</p>
+                    <div className="flex items-center gap-3">
+                      <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-white text-sm font-bold shrink-0`}>
+                        {t.initial}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-800">{t.name}</p>
+                        <p className="text-xs text-slate-400">{t.role}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
 
           {/* Controls */}
           <div className="flex items-center justify-center gap-3">
             <button
-              onClick={() => advanceTestimonial(-1)}
+              onClick={() => setTPos(p => p - 1)}
               className="w-8 h-8 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-400 hover:text-slate-700 transition-colors"
               aria-label="Previous"
             >
@@ -708,13 +743,13 @@ export default function Home() {
             {testimonials.map((_, i) => (
               <button
                 key={i}
-                onClick={() => goToTestimonial(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-200 ${i === tIdx ? 'bg-blue-600 w-4' : 'bg-slate-300 hover:bg-slate-400'}`}
+                onClick={() => { setTTransition(true); setTPos(CLONES + i); }}
+                className={`h-2 rounded-full transition-all duration-300 ${i === tRealIdx ? 'bg-blue-600 w-4' : 'bg-slate-300 w-2 hover:bg-slate-400'}`}
                 aria-label={`Go to testimonial ${i + 1}`}
               />
             ))}
             <button
-              onClick={() => advanceTestimonial(1)}
+              onClick={() => setTPos(p => p + 1)}
               className="w-8 h-8 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-400 hover:text-slate-700 transition-colors"
               aria-label="Next"
             >
