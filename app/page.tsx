@@ -255,6 +255,9 @@ export default function Home() {
             <a href="#pricing" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
               Pricing
             </a>
+            <Link href="/compare" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
+              Compare
+            </Link>
             <Link href="/account/login" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
               Sign in
             </Link>
@@ -776,9 +779,15 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <Link href="/pricing" className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
-            View full plan details →
-          </Link>
+          <div className="flex items-center justify-center gap-6">
+            <Link href="/pricing" className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors">
+              View full plan details →
+            </Link>
+            <span className="text-slate-300">|</span>
+            <Link href="/compare" className="text-slate-400 hover:text-slate-600 text-sm font-medium transition-colors">
+              How is this different from ChatGPT? →
+            </Link>
+          </div>
         </div>
       </section>
 
