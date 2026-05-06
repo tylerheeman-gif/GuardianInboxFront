@@ -11,6 +11,14 @@ export const metadata: Metadata = {
   title: 'Guardian Inbox | AI for Your Parents, Delivered by Email',
   description:
     'Give your parents a trusted AI companion they can reach by simply sending an email. Scam detection, news, sports scores, and more. No apps, no passwords, no learning curve.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     title: 'Guardian Inbox | AI for Your Parents, Delivered by Email',
     description:
