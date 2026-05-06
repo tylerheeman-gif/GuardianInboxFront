@@ -282,88 +282,140 @@ export default function Home() {
 
       {/* Email Examples */}
       <section className="bg-white px-6 py-20 border-t border-slate-100">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">See it in action</h2>
             <p className="text-slate-500 text-lg">Your parent emails a question. Guardian Inbox replies in minutes.</p>
           </div>
 
-          <div className="space-y-6">
+          {/* Gmail window */}
+          <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
 
-            {/* Exchange 1 */}
-            <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-              {/* Outgoing */}
-              <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
-                <div className="flex items-center gap-3 mb-1">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-600">B</div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">Bonni</p>
-                    <p className="text-xs text-slate-400">to: hello@guardianinbox.com</p>
-                  </div>
-                  <span className="ml-auto text-xs text-slate-400">7:42 AM</span>
-                </div>
-                <p className="text-sm font-medium text-slate-600 mt-2 pl-11">Subject: Rays game</p>
-                <p className="text-sm text-slate-700 mt-2 pl-11">Did the Rays win last night? I fell asleep before it ended.</p>
+            {/* Browser chrome */}
+            <div className="bg-[#DEE1E6] px-4 py-2.5 flex items-center gap-2">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                <div className="w-3 h-3 rounded-full bg-[#28C840]" />
               </div>
-              {/* Reply */}
-              <div className="bg-white px-6 py-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
-                    <span className="text-white text-xs font-bold">GI</span>
+              <div className="flex-1 mx-3 bg-white rounded-md px-3 py-1 text-xs text-slate-400 text-center">mail.google.com</div>
+            </div>
+
+            {/* Gmail UI */}
+            <div className="flex bg-[#F6F8FC] min-h-[520px]">
+
+              {/* Sidebar */}
+              <div className="w-52 bg-[#F6F8FC] py-4 shrink-0 hidden sm:block">
+                <button className="mx-3 mb-4 flex items-center gap-3 bg-white rounded-2xl shadow px-4 py-3 text-sm font-medium text-slate-700 w-[calc(100%-24px)]">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" fill="none"/><path d="M20 4H4v2h16V4zm0 7H4v2h16v-2zm0 7H4v2h16v-2z" fill="currentColor"/></svg>
+                  Compose
+                </button>
+                {[
+                  { label: 'Inbox', count: '3', active: true },
+                  { label: 'Starred', count: '' },
+                  { label: 'Sent', count: '' },
+                  { label: 'Drafts', count: '1' },
+                ].map(({ label, count, active }) => (
+                  <div key={label} className={`flex items-center justify-between px-4 py-1.5 rounded-r-full mr-3 text-sm cursor-pointer ${active ? 'bg-blue-100 font-bold text-blue-900' : 'text-slate-600 hover:bg-slate-200'}`}>
+                    <span>{label}</span>
+                    {count && <span className="text-xs font-semibold">{count}</span>}
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">Guardian Inbox</p>
-                    <p className="text-xs text-slate-400">to: Bonni</p>
+                ))}
+              </div>
+
+              {/* Main panel */}
+              <div className="flex-1 bg-white m-2 rounded-2xl overflow-hidden flex flex-col">
+
+                {/* Thread header */}
+                <div className="px-6 pt-5 pb-3 border-b border-slate-100">
+                  <h3 className="text-xl font-semibold text-slate-800">Rays game</h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Inbox</span>
+                    <span className="text-xs text-slate-400">2 messages</span>
                   </div>
-                  <span className="ml-auto text-xs text-slate-400">7:44 AM</span>
                 </div>
-                <div className="pl-11 text-sm text-slate-700 space-y-2 leading-relaxed">
-                  <p>Hi Bonni! Good news -- the Rays won last night! They beat the Boston Red Sox 6 to 4.</p>
-                  <p>It was a great game. The Rays scored three runs in the seventh inning to pull ahead. Randy Arozarena had a big night with two hits and two runs batted in.</p>
-                  <p>They are now 27 wins and 20 losses on the season. Things are looking up! Go Rays!</p>
-                  <p className="text-slate-500 pt-1">Warmly, Guardian Inbox</p>
+
+                <div className="overflow-y-auto flex-1 px-6 py-4 space-y-4">
+
+                  {/* Email 1: Bonni to Guardian Inbox */}
+                  <div className="border border-slate-200 rounded-2xl overflow-hidden">
+                    <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 border-b border-slate-100">
+                      <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-bold shrink-0">B</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline justify-between">
+                          <span className="text-sm font-semibold text-slate-800">Bonni</span>
+                          <span className="text-xs text-slate-400 shrink-0 ml-2">7:42 AM</span>
+                        </div>
+                        <p className="text-xs text-slate-400 truncate">to hello@guardianinbox.com</p>
+                      </div>
+                    </div>
+                    <div className="px-4 py-4 text-sm text-slate-700">
+                      Did the Rays win last night? I fell asleep before it ended.
+                    </div>
+                  </div>
+
+                  {/* Reply 1: Guardian Inbox to Bonni */}
+                  <div className="border border-blue-100 rounded-2xl overflow-hidden">
+                    <div className="flex items-center gap-3 px-4 py-3 bg-blue-50 border-b border-blue-100">
+                      <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">GI</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline justify-between">
+                          <span className="text-sm font-semibold text-slate-800">Guardian Inbox</span>
+                          <span className="text-xs text-slate-400 shrink-0 ml-2">7:44 AM</span>
+                        </div>
+                        <p className="text-xs text-slate-400 truncate">to Bonni</p>
+                      </div>
+                    </div>
+                    <div className="px-4 py-4 text-sm text-slate-700 space-y-2 leading-relaxed">
+                      <p>Hi Bonni! Good news -- the Rays won last night! They beat the Boston Red Sox 6 to 4.</p>
+                      <p>It was a great game. The Rays scored three runs in the seventh inning to pull ahead. Randy Arozarena had a big night with two hits and two runs batted in.</p>
+                      <p>They are now 27 wins and 20 losses on the season. Things are looking up! Go Rays!</p>
+                      <p className="text-slate-400 pt-1">Warmly, Guardian Inbox</p>
+                    </div>
+                  </div>
+
+                  {/* Email 2: Bonni follow-up */}
+                  <div className="border border-slate-200 rounded-2xl overflow-hidden">
+                    <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 border-b border-slate-100">
+                      <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-bold shrink-0">B</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline justify-between">
+                          <span className="text-sm font-semibold text-slate-800">Bonni</span>
+                          <span className="text-xs text-slate-400 shrink-0 ml-2">7:46 AM</span>
+                        </div>
+                        <p className="text-xs text-slate-400 truncate">to hello@guardianinbox.com</p>
+                      </div>
+                    </div>
+                    <div className="px-4 py-4 text-sm text-slate-700">
+                      Oh wonderful! Do you know who is pitching tonight?
+                    </div>
+                  </div>
+
+                  {/* Reply 2: Guardian Inbox */}
+                  <div className="border border-blue-100 rounded-2xl overflow-hidden">
+                    <div className="flex items-center gap-3 px-4 py-3 bg-blue-50 border-b border-blue-100">
+                      <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">GI</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline justify-between">
+                          <span className="text-sm font-semibold text-slate-800">Guardian Inbox</span>
+                          <span className="text-xs text-slate-400 shrink-0 ml-2">7:47 AM</span>
+                        </div>
+                        <p className="text-xs text-slate-400 truncate">to Bonni</p>
+                      </div>
+                    </div>
+                    <div className="px-4 py-4 text-sm text-slate-700 space-y-2 leading-relaxed">
+                      <p>Hi Bonni! Zach Eflin is scheduled to start on the mound tonight for the Rays. He has been one of their most reliable pitchers this season.</p>
+                      <p>First pitch is at 6:40 PM Eastern Time, also against the Red Sox at Tropicana Field in St. Petersburg. Should be a fun one to watch!</p>
+                      <p className="text-slate-400 pt-1">Warmly, Guardian Inbox</p>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
-
-            {/* Exchange 2 */}
-            <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-              {/* Outgoing */}
-              <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
-                <div className="flex items-center gap-3 mb-1">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-sm font-bold text-blue-600">B</div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">Bonni</p>
-                    <p className="text-xs text-slate-400">to: hello@guardianinbox.com</p>
-                  </div>
-                  <span className="ml-auto text-xs text-slate-400">7:46 AM</span>
-                </div>
-                <p className="text-sm font-medium text-slate-600 mt-2 pl-11">Subject: Re: Rays game</p>
-                <p className="text-sm text-slate-700 mt-2 pl-11">Oh wonderful! Do you know who is pitching tonight?</p>
-              </div>
-              {/* Reply */}
-              <div className="bg-white px-6 py-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
-                    <span className="text-white text-xs font-bold">GI</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">Guardian Inbox</p>
-                    <p className="text-xs text-slate-400">to: Bonni</p>
-                  </div>
-                  <span className="ml-auto text-xs text-slate-400">7:47 AM</span>
-                </div>
-                <div className="pl-11 text-sm text-slate-700 space-y-2 leading-relaxed">
-                  <p>Hi Bonni! Zach Eflin is scheduled to start on the mound tonight for the Rays. He has been one of their most reliable pitchers this season.</p>
-                  <p>First pitch is at 6:40 PM Eastern Time, also against the Red Sox at Tropicana Field in St. Petersburg. Should be a fun one to watch!</p>
-                  <p className="text-slate-500 pt-1">Warmly, Guardian Inbox</p>
-                </div>
-              </div>
-            </div>
-
           </div>
 
-          <p className="text-center text-slate-400 text-sm mt-8">Your parent just sends an email. That is all there is to it.</p>
+          <p className="text-center text-slate-400 text-sm mt-6">Your parent just sends an email. That is all there is to it.</p>
         </div>
       </section>
 
