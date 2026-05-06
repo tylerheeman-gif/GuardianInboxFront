@@ -420,18 +420,36 @@ export default function Home() {
           </div>
 
           {/* Guardian Inbox reply */}
-          <div className="bg-blue-900/40 border border-blue-700/50 rounded-2xl p-6 mb-8 text-left max-w-lg mx-auto">
-            <div className="flex items-center gap-3 mb-4 pb-4 border-b border-blue-700/40">
-              <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">GI</div>
-              <div>
-                <p className="text-blue-100 text-sm font-semibold">Guardian Inbox</p>
-                <p className="text-blue-400 text-xs">to susan@email.com</p>
+          <div className="bg-white rounded-2xl overflow-hidden shadow-2xl max-w-lg mx-auto mb-8 text-left">
+            {/* Email client chrome */}
+            <div className="bg-slate-100 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                <div className="w-3 h-3 rounded-full bg-[#28C840]" />
+              </div>
+              <span className="text-slate-400 text-xs mx-auto">Inbox</span>
+            </div>
+            {/* From field */}
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
+              <span className="text-slate-400 text-xs font-medium w-14 shrink-0">From</span>
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-white text-[9px] font-bold shrink-0">GI</div>
+                <span className="text-slate-700 text-sm font-medium">Guardian Inbox</span>
               </div>
             </div>
-            <p className="text-blue-100 text-sm leading-relaxed">
-              <span className="font-semibold">Hi there!</span> This email is a scam. The real Amazon will never ask you to call a phone number or provide your Social Security number. You are completely safe. Just delete this email and do nothing else. Let me know if you have any other questions!<br /><br />
-              <span className="text-blue-300">Warmly, Guardian Inbox</span>
-            </p>
+            {/* Subject field */}
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
+              <span className="text-slate-400 text-xs font-medium w-14 shrink-0">Subject</span>
+              <span className="text-slate-800 text-sm font-semibold">Re: Urgent: Your account has been suspended</span>
+            </div>
+            {/* Body */}
+            <div className="px-4 py-5">
+              <p className="text-slate-700 text-sm leading-relaxed">
+                <span className="font-semibold">Hi there!</span> This email is a scam. The real Amazon will never ask you to call a phone number or provide your Social Security number. You are completely safe. Just delete this email and do nothing else. Let me know if you have any other questions!
+              </p>
+              <p className="text-slate-400 text-sm mt-4">Warmly, Guardian Inbox</p>
+            </div>
           </div>
           <p className="text-white text-2xl sm:text-3xl font-semibold leading-relaxed">
             That is what peace of mind looks like.
