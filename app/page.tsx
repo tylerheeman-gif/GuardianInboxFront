@@ -426,6 +426,8 @@ export default function Home() {
               </div>{/* end screen content */}
             </div>{/* end screen */}
           </div>{/* end Gmail window */}
+              </div>{/* end screen content */}
+            </div>{/* end screen lid */}
 
             {/* Laptop base */}
             <div className="relative">
