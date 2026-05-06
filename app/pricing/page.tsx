@@ -22,7 +22,7 @@ function CheckIcon({ className }: { className?: string }) {
 const tiers = [
   {
     name: 'Essential',
-    priceId: 'price_1TSnSUKmZi8GlCMvlPgmVA4H',
+    priceId: 'price_1TTVIyKQPGqaPMc8hJk3lwRm',
     price: 29,
     description: 'Perfect for a single parent who needs a trusted companion in their inbox.',
     highlight: false,
@@ -36,7 +36,7 @@ const tiers = [
   },
   {
     name: 'Family',
-    priceId: 'price_1TSNDUKmZi8GlCMvlhJ1XPTN',
+    priceId: 'price_1TTVJDKQPGqaPMc8rMzcini8',
     price: 49,
     description: 'Ideal for couples or two parents who both deserve peace of mind.',
     highlight: true,
@@ -52,7 +52,7 @@ const tiers = [
   },
   {
     name: 'Guardian',
-    priceId: 'price_1TSNDUKmZi8GlCMvVOPHZIuz',
+    priceId: 'price_1TTVJ1KQPGqaPMc8i0UjOB4q',
     price: 99,
     description: 'Full-service care for larger families or those who want the most.',
     highlight: false,

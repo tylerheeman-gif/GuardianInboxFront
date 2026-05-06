@@ -23,21 +23,21 @@ function CheckIcon({ className }: { className?: string }) {
 const PLANS = [
   {
     name: 'Essential',
-    priceId: 'price_1TSnSUKmZi8GlCMvlPgmVA4H',
+    priceId: 'price_1TTVIyKQPGqaPMc8hJk3lwRm',
     price: '$29',
     desc: '1 user',
     highlight: false,
   },
   {
     name: 'Family',
-    priceId: 'price_1TSNDUKmZi8GlCMvlhJ1XPTN',
+    priceId: 'price_1TTVJDKQPGqaPMc8rMzcini8',
     price: '$49',
     desc: 'Up to 2 users',
     highlight: true,
   },
   {
     name: 'Guardian',
-    priceId: 'price_1TSNDUKmZi8GlCMvVOPHZIuz',
+    priceId: 'price_1TTVJ1KQPGqaPMc8i0UjOB4q',
     price: '$99',
     desc: 'Up to 5 users',
     highlight: false,
