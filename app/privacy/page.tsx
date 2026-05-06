@@ -9,7 +9,7 @@ export default function PrivacyPage() {
     <main className="min-h-screen bg-white antialiased">
       <nav className="bg-white/95 backdrop-blur-sm border-b border-slate-100 px-6 py-4 sticky top-0 z-50">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <Link href="/"><img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-14" /></Link>
+          <Link href="/"><img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-[168px]" /></Link>
           <Link href="/#waitlist" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm">
             Join Waitlist
           </Link>
