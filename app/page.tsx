@@ -383,7 +383,7 @@ export default function Home() {
           <div className="flex flex-col items-center my-6 gap-2">
             <div className="w-px h-8 bg-slate-700" />
             <div className="bg-blue-600/20 border border-blue-600/40 rounded-full px-4 py-1.5 text-blue-400 text-xs font-semibold uppercase tracking-widest">
-              Reply arrives in minutes
+              Reply arrives in seconds
             </div>
             <div className="w-px h-8 bg-slate-700" />
           </div>
@@ -610,11 +610,11 @@ export default function Home() {
           <div className="text-center mb-16">
             <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-4">The bar is zero</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight">
-              Your parent doesn&apos;t learn<br className="hidden sm:block" /> a single new thing.
+              They already know<br className="hidden sm:block" /> exactly how to use it.
             </h2>
             <p className="text-slate-400 text-xl max-w-2xl mx-auto leading-relaxed">
-              Every other solution asks your parent to download, sign up, learn, or remember something.
-              Guardian Inbox asks nothing.
+              They have been sending emails for years. That is the only skill this takes.
+              Guardian Inbox fits perfectly into the life they already live.
             </p>
           </div>
 
