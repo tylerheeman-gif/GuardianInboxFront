@@ -22,8 +22,11 @@ function CheckIcon({ className }: { className?: string }) {
 const tiers = [
   {
     name: 'Essential',
-    priceId: 'price_1TTVIyKQPGqaPMc8hJk3lwRm',
-    price: 29,
+    monthlyPriceId: 'price_1TTVIyKQPGqaPMc8hJk3lwRm',
+    annualPriceId: 'price_ANNUAL_ESSENTIAL_TBD',
+    monthlyPrice: 29,
+    annualTotal: 290,
+    annualMonthly: 24,
     description: 'Perfect for a single parent who needs a trusted companion in their inbox.',
     highlight: false,
     features: [
@@ -36,8 +39,11 @@ const tiers = [
   },
   {
     name: 'Family',
-    priceId: 'price_1TTVJDKQPGqaPMc8rMzcini8',
-    price: 49,
+    monthlyPriceId: 'price_1TTVJDKQPGqaPMc8rMzcini8',
+    annualPriceId: 'price_ANNUAL_FAMILY_TBD',
+    monthlyPrice: 49,
+    annualTotal: 490,
+    annualMonthly: 41,
     description: 'Ideal for couples or two parents who both deserve peace of mind.',
     highlight: true,
     badge: 'Most Popular',
@@ -52,8 +58,11 @@ const tiers = [
   },
   {
     name: 'Guardian',
-    priceId: 'price_1TTVJ1KQPGqaPMc8i0UjOB4q',
-    price: 99,
+    monthlyPriceId: 'price_1TTVJ1KQPGqaPMc8i0UjOB4q',
+    annualPriceId: 'price_ANNUAL_GUARDIAN_TBD',
+    monthlyPrice: 99,
+    annualTotal: 990,
+    annualMonthly: 83,
     description: 'Full-service care for larger families or those who want the most.',
     highlight: false,
     features: [
@@ -69,10 +78,11 @@ const tiers = [
 ];
 
 export default function PricingPage() {
-  const [modal, setModal] = useState<{ priceId: string; planName: string } | null>(null);
+  const [modal, setModal] = useState<{ priceId: string; planName: string; displayPrice: string } | null>(null);
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
 
   async function handleCheckout(e: React.FormEvent) {
     e.preventDefault();
@@ -98,6 +108,16 @@ export default function PricingPage() {
     }
   }
 
+  function openModal(tier: typeof tiers[0]) {
+    const priceId = billing === 'annual' ? tier.annualPriceId : tier.monthlyPriceId;
+    const displayPrice = billing === 'annual'
+      ? `$${tier.annualTotal}/year ($${tier.annualMonthly}/mo)`
+      : `$${tier.monthlyPrice}/month`;
+    setModal({ priceId, planName: tier.name, displayPrice });
+    setEmail('');
+    setError('');
+  }
+
   return (
     <main className="min-h-screen bg-white antialiased">
 
@@ -107,7 +127,7 @@ export default function PricingPage() {
           <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
             <h2 className="text-xl font-bold text-slate-900 mb-1">Get started</h2>
             <p className="text-slate-500 text-sm mb-6">
-              ${tiers.find(t => t.priceId === modal.priceId)?.price}/month for the {modal.planName} plan. Cancel anytime.
+              {modal.displayPrice} for the {modal.planName} plan. Cancel anytime.
             </p>
             <form onSubmit={handleCheckout} className="space-y-4">
               <div>
@@ -148,10 +168,10 @@ export default function PricingPage() {
             <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-[84px]" />
           </Link>
           <Link
-            href="/#waitlist"
+            href="/#pricing"
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition-colors text-sm shadow-sm"
           >
-            Join Waitlist
+            Get Started
           </Link>
         </div>
       </nav>
@@ -159,8 +179,8 @@ export default function PricingPage() {
       {/* Header */}
       <section className="bg-white px-6 pt-20 pb-12 text-center">
         <div className="max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-            ⚡ Early Access: Coming Soon
+          <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6 border border-green-200">
+            7-day free trial on every plan
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
             Simple, transparent pricing
@@ -173,73 +193,115 @@ export default function PricingPage() {
 
       {/* Pricing cards */}
       <section className="bg-slate-50 px-6 py-16">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-6 items-stretch">
-          {tiers.map(({ name, priceId, price, description, highlight, badge, features }) => (
-            <div
-              key={name}
-              className={`relative rounded-3xl p-8 flex flex-col border ${
-                highlight
-                  ? 'bg-blue-600 border-blue-600 shadow-2xl shadow-blue-600/20'
-                  : 'bg-white border-slate-100 shadow-sm'
-              }`}
-            >
-              {badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="bg-amber-400 text-slate-900 text-xs font-bold px-4 py-1 rounded-full shadow-sm">
-                    {badge}
-                  </span>
-                </div>
-              )}
+        <div className="max-w-5xl mx-auto">
 
-              <div className="mb-6">
-                <h2 className={`text-lg font-bold mb-1 ${highlight ? 'text-white' : 'text-slate-900'}`}>
-                  {name}
-                </h2>
-                <p className={`text-sm leading-relaxed ${highlight ? 'text-blue-200' : 'text-slate-500'}`}>
-                  {description}
-                </p>
-              </div>
-
-              <div className="mb-8">
-                <div className="flex items-end gap-1">
-                  <span className={`text-5xl font-extrabold ${highlight ? 'text-white' : 'text-slate-900'}`}>
-                    ${price}
-                  </span>
-                  <span className={`text-sm mb-2 ${highlight ? 'text-blue-200' : 'text-slate-400'}`}>
-                    /month
-                  </span>
-                </div>
-              </div>
-
-              <ul className="space-y-3 mb-8 flex-1">
-                {features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2.5">
-                    <CheckIcon className={`w-4 h-4 shrink-0 mt-0.5 ${highlight ? 'text-blue-200' : 'text-green-500'}`} />
-                    <span className={`text-sm ${highlight ? 'text-blue-100' : 'text-slate-600'}`}>
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
+          {/* Billing toggle */}
+          <div className="flex justify-center mb-10">
+            <div className="inline-flex items-center gap-1 bg-white border border-slate-200 rounded-xl p-1 shadow-sm">
               <button
-                onClick={() => setModal({ priceId, planName: name })}
-                className={`block w-full text-center py-3 rounded-xl font-semibold text-sm transition-colors ${
-                  highlight
-                    ? 'bg-white text-blue-600 hover:bg-blue-50'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                onClick={() => setBilling('monthly')}
+                className={`px-6 py-2 rounded-lg text-sm font-semibold transition-all ${
+                  billing === 'monthly'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                Get started
+                Monthly
+              </button>
+              <button
+                onClick={() => setBilling('annual')}
+                className={`px-6 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
+                  billing === 'annual'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                Annual
+                <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                  billing === 'annual' ? 'bg-white/20 text-white' : 'bg-green-100 text-green-700'
+                }`}>
+                  2 months free
+                </span>
               </button>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Trust line */}
-        <p className="text-center text-slate-400 text-sm mt-10">
-          No contracts. Cancel anytime.
-        </p>
+          <div className="grid sm:grid-cols-3 gap-6 items-stretch">
+            {tiers.map((tier) => {
+              const { name, monthlyPrice, annualTotal, annualMonthly, description, highlight, badge, features } = tier;
+              return (
+                <div
+                  key={name}
+                  className={`relative rounded-3xl p-8 flex flex-col border ${
+                    highlight
+                      ? 'bg-blue-600 border-blue-600 shadow-2xl shadow-blue-600/20'
+                      : 'bg-white border-slate-100 shadow-sm'
+                  }`}
+                >
+                  {badge && (
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                      <span className="bg-amber-400 text-slate-900 text-xs font-bold px-4 py-1 rounded-full shadow-sm">
+                        {badge}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="mb-6">
+                    <h2 className={`text-lg font-bold mb-1 ${highlight ? 'text-white' : 'text-slate-900'}`}>
+                      {name}
+                    </h2>
+                    <p className={`text-sm leading-relaxed ${highlight ? 'text-blue-200' : 'text-slate-500'}`}>
+                      {description}
+                    </p>
+                  </div>
+
+                  <div className="mb-8">
+                    <div className="flex items-end gap-1">
+                      <span className={`text-5xl font-extrabold ${highlight ? 'text-white' : 'text-slate-900'}`}>
+                        ${billing === 'annual' ? annualMonthly : monthlyPrice}
+                      </span>
+                      <span className={`text-sm mb-2 ${highlight ? 'text-blue-200' : 'text-slate-400'}`}>
+                        /month
+                      </span>
+                    </div>
+                    {billing === 'annual' && (
+                      <p className={`text-xs mt-1 font-medium ${highlight ? 'text-blue-200' : 'text-slate-400'}`}>
+                        billed ${annualTotal}/year
+                      </p>
+                    )}
+                  </div>
+
+                  <ul className="space-y-3 mb-8 flex-1">
+                    {features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2.5">
+                        <CheckIcon className={`w-4 h-4 shrink-0 mt-0.5 ${highlight ? 'text-blue-200' : 'text-green-500'}`} />
+                        <span className={`text-sm ${highlight ? 'text-blue-100' : 'text-slate-600'}`}>
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button
+                    onClick={() => openModal(tier)}
+                    className={`block w-full text-center py-3 rounded-xl font-semibold text-sm transition-colors ${
+                      highlight
+                        ? 'bg-white text-blue-600 hover:bg-blue-50'
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
+                  >
+                    Start free trial
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Trust line */}
+          <p className="text-center text-slate-400 text-sm mt-10">
+            7-day free trial on every plan. No contracts. Cancel anytime.
+          </p>
+        </div>
       </section>
 
       {/* FAQ */}
@@ -288,15 +350,16 @@ export default function PricingPage() {
             Ready to protect someone you love?
           </h2>
           <p className="text-slate-500 text-lg mb-8">
-            Join the waitlist today and get early access pricing when we launch.
+            Start your 7-day free trial today. No charge until day 8.
           </p>
           <Link
-            href="/#waitlist"
+            href="#"
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base shadow-lg shadow-blue-600/20"
           >
-            Join the Early Access Waitlist →
+            See all plans above →
           </Link>
-          <p className="text-slate-400 text-sm mt-4">No credit card required. No spam, ever.</p>
+          <p className="text-slate-400 text-sm mt-4">No contracts. Cancel anytime.</p>
         </div>
       </section>
 

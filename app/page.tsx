@@ -23,22 +23,31 @@ function CheckIcon({ className }: { className?: string }) {
 const PLANS = [
   {
     name: 'Essential',
-    priceId: 'price_1TTVIyKQPGqaPMc8hJk3lwRm',
-    price: '$29',
+    monthlyPriceId: 'price_1TTVIyKQPGqaPMc8hJk3lwRm',
+    annualPriceId: 'price_ANNUAL_ESSENTIAL_TBD',
+    monthlyPrice: 29,
+    annualTotal: 290,
+    annualMonthly: 24,
     desc: '1 parent',
     highlight: false,
   },
   {
     name: 'Family',
-    priceId: 'price_1TTVJDKQPGqaPMc8rMzcini8',
-    price: '$49',
+    monthlyPriceId: 'price_1TTVJDKQPGqaPMc8rMzcini8',
+    annualPriceId: 'price_ANNUAL_FAMILY_TBD',
+    monthlyPrice: 49,
+    annualTotal: 490,
+    annualMonthly: 41,
     desc: 'Up to 2 parents',
     highlight: true,
   },
   {
     name: 'Guardian',
-    priceId: 'price_1TTVJ1KQPGqaPMc8i0UjOB4q',
-    price: '$99',
+    monthlyPriceId: 'price_1TTVJ1KQPGqaPMc8i0UjOB4q',
+    annualPriceId: 'price_ANNUAL_GUARDIAN_TBD',
+    monthlyPrice: 99,
+    annualTotal: 990,
+    annualMonthly: 83,
     desc: 'Up to 5 family members',
     highlight: false,
   },
@@ -165,11 +174,12 @@ const testimonials = [
 ];
 
 export default function Home() {
-  const [modal, setModal] = useState<{ priceId: string; planName: string; price: string } | null>(null);
+  const [modal, setModal] = useState<{ priceId: string; planName: string; displayPrice: string } | null>(null);
   const [checkoutEmail, setCheckoutEmail] = useState('');
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
   const [tHovered, setTHovered] = useState(false);
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
   const doubled = [...testimonials, ...testimonials];
 
   async function handleCheckout(e: React.FormEvent) {
@@ -197,7 +207,11 @@ export default function Home() {
   }
 
   function openModal(plan: typeof PLANS[0]) {
-    setModal({ priceId: plan.priceId, planName: plan.name, price: plan.price });
+    const priceId = billing === 'annual' ? plan.annualPriceId : plan.monthlyPriceId;
+    const displayPrice = billing === 'annual'
+      ? `$${plan.annualTotal}/year ($${plan.annualMonthly}/mo)`
+      : `$${plan.monthlyPrice}/month`;
+    setModal({ priceId, planName: plan.name, displayPrice });
     setCheckoutEmail('');
     setCheckoutError('');
   }
@@ -211,7 +225,7 @@ export default function Home() {
           <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
             <h2 className="text-xl font-bold text-slate-900 mb-1">Get started</h2>
             <p className="text-slate-500 text-sm mb-6">
-              {modal.price}/month for the {modal.planName} plan. Cancel anytime.
+              {modal.displayPrice} for the {modal.planName} plan. Cancel anytime.
             </p>
             <form onSubmit={handleCheckout} className="space-y-4">
               <div>
@@ -740,7 +754,37 @@ export default function Home() {
           <p className="text-slate-500 text-lg mb-2 max-w-2xl mx-auto leading-relaxed">
             The average senior scam costs $33,000. Guardian Inbox costs $29 a month.
           </p>
-          <p className="text-slate-400 text-sm mb-12">7-day free trial included. No contracts. Cancel anytime.</p>
+          <p className="text-slate-400 text-sm mb-8">7-day free trial included. No contracts. Cancel anytime.</p>
+
+          {/* Billing toggle */}
+          <div className="inline-flex items-center gap-1 bg-white border border-slate-200 rounded-xl p-1 mb-10 shadow-sm">
+            <button
+              onClick={() => setBilling('monthly')}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${
+                billing === 'monthly'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setBilling('annual')}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
+                billing === 'annual'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              Annual
+              <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                billing === 'annual' ? 'bg-white/20 text-white' : 'bg-green-100 text-green-700'
+              }`}>
+                2 months free
+              </span>
+            </button>
+          </div>
+
           <div className="grid sm:grid-cols-3 gap-5 mb-8">
             {PLANS.map((plan) => (
               <div
@@ -755,8 +799,15 @@ export default function Home() {
                   <div className="text-xs font-bold text-amber-400 mb-2 uppercase tracking-wide">Most Popular</div>
                 )}
                 <div className={`text-base font-semibold mb-1 ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.name}</div>
-                <div className={`text-4xl font-extrabold mb-1 ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>{plan.price}</div>
-                <div className={`text-sm mb-4 ${plan.highlight ? 'text-blue-200' : 'text-slate-400'}`}>per month</div>
+                <div className={`text-4xl font-extrabold mb-0.5 ${plan.highlight ? 'text-white' : 'text-slate-900'}`}>
+                  ${billing === 'annual' ? plan.annualMonthly : plan.monthlyPrice}
+                </div>
+                <div className={`text-sm mb-1 ${plan.highlight ? 'text-blue-200' : 'text-slate-400'}`}>per month</div>
+                {billing === 'annual' && (
+                  <div className={`text-xs font-medium mb-3 ${plan.highlight ? 'text-blue-200' : 'text-slate-400'}`}>
+                    billed ${plan.annualTotal}/year
+                  </div>
+                )}
                 <div className={`text-sm mb-6 flex-1 ${plan.highlight ? 'text-blue-100' : 'text-slate-500'}`}>{plan.desc}</div>
                 <button
                   onClick={() => openModal(plan)}
@@ -828,7 +879,7 @@ export default function Home() {
                       : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200'
                   }`}
                 >
-                  {plan.name}: {plan.price}/mo
+                  {plan.name}: ${plan.monthlyPrice}/mo
                 </button>
               ))}
             </div>
