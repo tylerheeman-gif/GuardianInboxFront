@@ -185,7 +185,7 @@ export default function Home() {
       )}
 
       {/* Nav */}
-      <nav className="bg-white/95 backdrop-blur-sm border-b border-slate-100 px-6 py-4 sticky top-0 z-40">
+      <nav className="bg-white/95 backdrop-blur-sm border-b border-slate-100 px-6 py-1 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/">
             <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-[84px]" />
@@ -208,7 +208,7 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="bg-white px-6 pt-16 pb-20 lg:pt-24 lg:pb-28">
+      <section className="bg-white px-6 pt-8 pb-20 lg:pt-10 lg:pb-28">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Left */}
