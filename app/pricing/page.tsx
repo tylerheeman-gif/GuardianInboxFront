@@ -116,6 +116,13 @@ export default function PricingPage() {
     setModal({ priceId, planName: tier.name, displayPrice });
     setEmail('');
     setError('');
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'begin_checkout', {
+        currency: 'USD',
+        value: billing === 'annual' ? tier.annualTotal : tier.monthlyPrice,
+        items: [{ item_name: tier.name, item_id: priceId, price: billing === 'annual' ? tier.annualTotal : tier.monthlyPrice }],
+      });
+    }
   }
 
   return (
