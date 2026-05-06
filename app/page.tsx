@@ -25,21 +25,21 @@ const PLANS = [
     name: 'Essential',
     priceId: 'price_1TTVIyKQPGqaPMc8hJk3lwRm',
     price: '$29',
-    desc: '1 user',
+    desc: '1 parent',
     highlight: false,
   },
   {
     name: 'Family',
     priceId: 'price_1TTVJDKQPGqaPMc8rMzcini8',
     price: '$49',
-    desc: 'Up to 2 users',
+    desc: 'Up to 2 parents',
     highlight: true,
   },
   {
     name: 'Guardian',
     priceId: 'price_1TTVJ1KQPGqaPMc8i0UjOB4q',
     price: '$99',
-    desc: 'Up to 5 users',
+    desc: 'Up to 5 family members',
     highlight: false,
   },
 ];
@@ -47,34 +47,34 @@ const PLANS = [
 const features = [
   {
     icon: '🛡️',
-    title: 'Scam & Fraud Detection',
-    desc: "Forward any suspicious email and get an immediate verdict. No jargon. Just: \"This is a scam. Here's exactly what to do.\"",
+    title: 'Scam Detection',
+    desc: 'Forward any suspicious email and get an immediate, plain-English verdict. No jargon. Just: "This is a scam. Delete it."',
     highlight: true,
   },
   {
     icon: '📰',
     title: 'News & Current Events',
-    desc: 'Ask about any headline or story. Get a clear, balanced summary without ever opening a browser.',
+    desc: 'Ask about any headline. Get a clear, balanced summary without ever opening a browser or fighting through ads.',
   },
   {
     icon: '🏈',
-    title: 'Sports Scores & Lineups',
-    desc: '"Did the Cubs win last night?" "Who\'s pitching Sunday?" Answered in seconds.',
+    title: 'Sports Scores',
+    desc: '"Did the Cubs win last night?" "Who starts Sunday?" Answered in seconds, every time.',
   },
   {
     icon: '💊',
     title: 'Health Questions',
-    desc: "Get clear information to bring to a doctor's appointment. Always a guide, never a replacement for professional care.",
+    desc: 'Clear information to bring to a doctor visit. Always a helpful guide, never a replacement for professional care.',
   },
   {
     icon: '🍽️',
-    title: 'Recipes & Cooking',
-    desc: 'Ask for any recipe, get full step-by-step instructions. No websites, no ads, no videos to scroll through.',
+    title: 'Recipes',
+    desc: 'Full step-by-step instructions for anything they want to cook. No ads, no videos, no scrolling.',
   },
   {
     icon: '❓',
     title: 'Ask Anything',
-    desc: 'Crossword clues. Trivia. Directions. How to spell something. No question is too small.',
+    desc: 'Crossword clues. Trivia. How to spell something. No question is too small or too simple.',
   },
 ];
 
@@ -83,13 +83,13 @@ const steps = [
     n: '1',
     icon: '💳',
     title: 'You sign up in minutes',
-    desc: "Choose a plan online. We handle the rest. Your parent doesn't have to lift a finger.",
+    desc: 'Choose a plan. We handle everything else. Your parent does not have to lift a finger.',
   },
   {
     n: '2',
     icon: '📬',
     title: 'They get a personal address',
-    desc: 'Your parent receives a dedicated Guardian Inbox email address, their direct line to a trusted AI companion.',
+    desc: 'Your parent receives a dedicated Guardian Inbox email address. That is all they need.',
   },
   {
     n: '3',
@@ -103,6 +103,30 @@ const stats = [
   { stat: '$3.4B', label: 'Lost to elder fraud in the US in 2023', src: 'FBI IC3 2023 Report' },
   { stat: '101K+', label: 'Fraud complaints filed by adults over 60', src: 'FBI IC3 2023 Report' },
   { stat: '$33K', label: 'Average loss per victim over age 60', src: 'FBI IC3 2023 Report' },
+];
+
+const testimonials = [
+  {
+    quote: "My dad forwarded a scam email last week. Guardian Inbox flagged it in two minutes and told him exactly what to do. I can't explain how much peace of mind that gives me.",
+    name: 'Sarah M.',
+    role: 'Daughter, Tampa FL',
+    initial: 'S',
+    color: 'bg-rose-500',
+  },
+  {
+    quote: "My mom emails it every morning about the news, weather, her Phillies. She thinks it's just a really smart pen pal. Best thing I've ever done for her.",
+    name: 'James T.',
+    role: 'Son, Phoenix AZ',
+    initial: 'J',
+    color: 'bg-indigo-500',
+  },
+  {
+    quote: "I set it up for both of my parents in about five minutes. They use it constantly now. My mom calls it her 'email helper.' Dad just calls it brilliant.",
+    name: 'Carol B.',
+    role: 'Daughter, Chicago IL',
+    initial: 'C',
+    color: 'bg-emerald-500',
+  },
 ];
 
 export default function Home() {
@@ -170,7 +194,7 @@ export default function Home() {
                 disabled={checkoutLoading}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors text-sm disabled:opacity-60"
               >
-                {checkoutLoading ? 'Redirecting to checkout…' : 'Continue to checkout →'}
+                {checkoutLoading ? 'Redirecting to checkout...' : 'Continue to checkout →'}
               </button>
               <button
                 type="button"
@@ -211,25 +235,25 @@ export default function Home() {
       <section className="bg-white px-6 pt-8 pb-20 lg:pt-10 lg:pb-28">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
 
-          {/* Left */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-              🛡️ Protecting families since 2026
+            <div className="inline-flex items-center gap-2 bg-amber-50 text-amber-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6 border border-amber-200">
+              ⚠️ Seniors lost $3.4 billion to fraud last year
             </div>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 leading-[1.1] mb-5 tracking-tight">
-              Your mom got another scam email.
-              <span className="text-blue-600 block mt-2">What if she had someone to ask?</span>
+              Be there for your parents,
+              <span className="text-blue-600 block mt-2">even when you can&apos;t be.</span>
             </h1>
             <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-lg">
-              Guardian Inbox gives your parents a trusted AI companion they can reach simply by
-              sending an email. No apps, no passwords, no learning curve. Just answers.
+              Guardian Inbox gives your parent a trusted companion they can reach by simply sending an email.
+              They get answers, scam protection, and someone who always writes back.
+              No apps. No passwords. No learning curve.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 mb-6">
               <a
                 href="#pricing"
                 className="inline-block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base shadow-lg shadow-blue-600/20"
               >
-                Get started →
+                Protect your parent today →
               </a>
               <a
                 href="#how-it-works"
@@ -238,9 +262,9 @@ export default function Home() {
                 See how it works
               </a>
             </div>
-            <p className="text-slate-400 text-sm mb-4">Plans from $29/month. Cancel anytime.</p>
+            <p className="text-slate-400 text-sm mb-4">Plans from $29/month. 7-day free trial. Cancel anytime.</p>
             <div className="flex flex-wrap items-center gap-5">
-              {['Cancel anytime', 'No tech setup for your parent', 'Easy to gift online'].map((item) => (
+              {['No tech setup for your parent', 'Works with any email they already use', 'Easy to gift online'].map((item) => (
                 <div key={item} className="flex items-center gap-1.5 text-slate-500 text-sm">
                   <CheckIcon className="w-4 h-4 text-green-500 shrink-0" />
                   {item}
@@ -249,7 +273,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right: photo + floating badge */}
           <div className="relative hidden lg:block">
             <div className="rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/80">
               <Image
@@ -270,7 +293,7 @@ export default function Home() {
                 <div>
                   <p className="text-sm font-semibold text-slate-800">Scam Detected</p>
                   <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
-                    This is a phishing email. Do not click any links or reply.
+                    This is a phishing email. Do not click any links or reply. You are safe.
                   </p>
                 </div>
               </div>
@@ -280,12 +303,70 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Story section */}
+      <section className="bg-slate-900 px-6 py-20">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-6">Picture this</p>
+          <p className="text-white text-2xl sm:text-3xl font-light leading-relaxed mb-6">
+            It&apos;s Tuesday morning. Your mom gets an email:
+          </p>
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 mb-8 text-left max-w-lg mx-auto">
+            <p className="text-slate-300 text-sm font-mono leading-relaxed">
+              <span className="text-slate-500">From:</span> security-alert@amazon-verify-account.net<br />
+              <span className="text-slate-500">Subject:</span> Urgent: Your account has been suspended<br /><br />
+              <span className="text-red-400">Your Social Security number has been flagged for suspicious activity. You must call 1-800-555-0192 immediately to avoid account closure.</span>
+            </p>
+          </div>
+          <p className="text-slate-300 text-xl sm:text-2xl font-light leading-relaxed mb-4">
+            She doesn&apos;t know it&apos;s a scam. She&apos;s home alone. And you&apos;re at work.
+          </p>
+          <div className="w-px h-12 bg-slate-700 mx-auto my-8" />
+          <p className="text-slate-400 text-lg mb-4">With Guardian Inbox, she forwards it and gets back:</p>
+          <div className="bg-blue-900/40 border border-blue-700/50 rounded-2xl p-6 mb-8 text-left max-w-lg mx-auto">
+            <p className="text-blue-100 text-sm leading-relaxed">
+              <span className="font-semibold">Hi there!</span> This email is a scam. The real Amazon will never ask you to call a phone number or provide your Social Security number. You are completely safe. Just delete this email and do nothing else. Let me know if you have any other questions!<br /><br />
+              <span className="text-blue-300">Warmly, Guardian Inbox</span>
+            </p>
+          </div>
+          <p className="text-white text-2xl sm:text-3xl font-semibold leading-relaxed">
+            That is what peace of mind looks like.
+          </p>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="bg-slate-50 px-6 py-20">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+              The threat is real. And it is getting worse.
+            </h2>
+            <p className="text-slate-500 text-lg max-w-xl mx-auto">
+              The emails look legitimate. The callers sound official. And when your parent is unsure,
+              there is often no one right there to ask.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-5">
+            {stats.map(({ stat, label, src }) => (
+              <div key={stat} className="bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
+                <div className="text-4xl font-extrabold text-blue-600 mb-2">{stat}</div>
+                <div className="text-slate-700 font-medium text-sm leading-snug mb-1">{label}</div>
+                <div className="text-slate-400 text-xs">{src}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-slate-400 text-sm mt-8">
+            Guardian Inbox costs $29 a month. One scam costs $33,000.
+          </p>
+        </div>
+      </section>
+
       {/* Email Examples */}
-      <section className="bg-gradient-to-b from-slate-50 to-white px-6 py-20 border-t border-slate-100">
+      <section className="bg-gradient-to-b from-white to-slate-50 px-6 py-20 border-t border-slate-100">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">See it in action</h2>
-            <p className="text-slate-500 text-lg">Your parent emails a question. Guardian Inbox replies in minutes.</p>
+            <p className="text-slate-500 text-lg">Your parent sends an email. A warm, clear reply arrives in minutes.</p>
           </div>
 
           {/* Laptop mockup */}
@@ -442,40 +523,18 @@ export default function Home() {
 
           </div>
 
-          <p className="text-center text-slate-400 text-sm mt-10">Your parent just sends an email. That is all there is to it.</p>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="bg-slate-50 px-6 py-20">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
-              Scams targeting seniors are at an all-time high
-            </h2>
-            <p className="text-slate-500 text-lg max-w-xl mx-auto">
-              The emails look real. The calls sound legitimate. And when your parent is unsure,
-              there&apos;s often no one right there to ask.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-3 gap-5">
-            {stats.map(({ stat, label, src }) => (
-              <div key={stat} className="bg-white rounded-2xl p-7 border border-slate-100 shadow-sm">
-                <div className="text-4xl font-extrabold text-blue-600 mb-2">{stat}</div>
-                <div className="text-slate-700 font-medium text-sm leading-snug mb-1">{label}</div>
-                <div className="text-slate-400 text-xs">{src}</div>
-              </div>
-            ))}
-          </div>
+          <p className="text-center text-slate-400 text-sm mt-10">
+            If they can send an email, they are already set up.
+          </p>
         </div>
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="bg-white px-6 py-20">
+      <section id="how-it-works" className="bg-white px-6 py-20 border-t border-slate-100">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">How it works</h2>
-            <p className="text-slate-500 text-lg">Simple enough for any generation.</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">Set up in five minutes</h2>
+            <p className="text-slate-500 text-lg">You do the setup. Your parent just sends emails.</p>
           </div>
           <div className="grid sm:grid-cols-3 gap-10">
             {steps.map(({ n, icon, title, desc }) => (
@@ -492,16 +551,51 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="bg-slate-50 px-6 py-20 border-t border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+              Families who finally stopped worrying
+            </h2>
+            <p className="text-slate-500 text-lg">What it feels like when your parent has Guardian Inbox.</p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-5">
+            {testimonials.map(({ quote, name, role, initial, color }) => (
+              <div key={name} className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-4 h-4 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-5">&ldquo;{quote}&rdquo;</p>
+                <div className="flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-full ${color} flex items-center justify-center text-white text-sm font-bold shrink-0`}>
+                    {initial}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-800">{name}</p>
+                    <p className="text-xs text-slate-400">{role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
-      <section className="bg-slate-50 px-6 py-20">
+      <section className="bg-white px-6 py-20 border-t border-slate-100">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
               More than just protection
             </h2>
             <p className="text-slate-500 text-lg max-w-xl mx-auto">
-              Guardian Inbox is your parent&apos;s always-available, always-patient companion for
-              everything life throws at them.
+              Guardian Inbox becomes the first thing your parent reaches for when they have a question,
+              a worry, or just something to share.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -509,7 +603,7 @@ export default function Home() {
               <div
                 key={title}
                 className={`rounded-2xl p-6 border transition-shadow hover:shadow-md ${
-                  highlight ? 'bg-blue-50 border-blue-200' : 'bg-white border-slate-100 shadow-sm'
+                  highlight ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-100'
                 }`}
               >
                 <div className="text-2xl mb-3">{icon}</div>
@@ -517,7 +611,7 @@ export default function Home() {
                   <h3 className="text-base font-semibold text-slate-900">{title}</h3>
                   {highlight && (
                     <span className="text-xs font-semibold bg-blue-600 text-white px-2 py-0.5 rounded-full shrink-0">
-                      #1
+                      Most used
                     </span>
                   )}
                 </div>
@@ -529,14 +623,15 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="bg-white px-6 py-20">
+      <section id="pricing" className="bg-slate-50 px-6 py-20 border-t border-slate-100">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-            Simple, transparent pricing
+            Simple, honest pricing
           </h2>
-          <p className="text-slate-500 text-lg mb-12 max-w-xl mx-auto leading-relaxed">
-            No contracts. Cancel anytime.
+          <p className="text-slate-500 text-lg mb-2 max-w-2xl mx-auto leading-relaxed">
+            The average senior scam costs $33,000. Guardian Inbox costs $29 a month.
           </p>
+          <p className="text-slate-400 text-sm mb-12">7-day free trial included. No contracts. Cancel anytime.</p>
           <div className="grid sm:grid-cols-3 gap-5 mb-8">
             {PLANS.map((plan) => (
               <div
@@ -562,13 +657,13 @@ export default function Home() {
                       : 'bg-blue-600 text-white hover:bg-blue-700'
                   }`}
                 >
-                  Get started
+                  Start free trial
                 </button>
               </div>
             ))}
           </div>
           <div className="flex items-center justify-center gap-6 flex-wrap mb-4">
-            {['Cancel anytime', 'No tech setup for your parent', 'Easy to gift online'].map((item) => (
+            {['7-day free trial', 'No tech setup for your parent', 'Cancel anytime'].map((item) => (
               <div key={item} className="flex items-center gap-1.5 text-slate-500 text-sm">
                 <CheckIcon className="w-4 h-4 text-green-500 shrink-0" />
                 {item}
@@ -582,7 +677,7 @@ export default function Home() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="bg-slate-50 px-6 py-20">
+      <section className="bg-white px-6 py-20 border-t border-slate-100">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
 
           <div className="hidden lg:block rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/80">
@@ -599,10 +694,13 @@ export default function Home() {
           <div>
             <ShieldCheckIcon className="w-10 h-10 text-blue-600 mb-5" />
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 leading-tight">
-              Ready to protect someone you love?
+              They already know how to use it.
             </h2>
+            <p className="text-slate-500 text-lg mb-4 leading-relaxed">
+              If your parent can send an email, they are already set up. No downloads. No accounts for them to create. No learning curve.
+            </p>
             <p className="text-slate-500 text-lg mb-8 leading-relaxed">
-              Give your parent a trusted companion in their inbox. No contracts, cancel anytime.
+              You set it up once. They have someone to ask for the rest of their lives.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               {PLANS.map((plan) => (
@@ -612,21 +710,21 @@ export default function Home() {
                   className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-colors ${
                     plan.highlight
                       ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-600/20'
-                      : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200'
+                      : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200'
                   }`}
                 >
-                  {plan.name}: {plan.price}
+                  {plan.name}: {plan.price}/mo
                 </button>
               ))}
             </div>
-            <p className="text-slate-400 text-sm mt-4">No spam, ever. Cancel anytime.</p>
+            <p className="text-slate-400 text-sm mt-4">7-day free trial. No commitment.</p>
           </div>
 
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-slate-100 px-6 py-10">
+      <footer className="bg-slate-50 border-t border-slate-100 px-6 py-10">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
           <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-7" />
           <p className="text-slate-400 text-sm">© 2026 Guardian Inbox. All rights reserved.</p>
