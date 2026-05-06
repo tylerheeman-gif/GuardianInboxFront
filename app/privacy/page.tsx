@@ -24,7 +24,7 @@ export default function PrivacyPage() {
 
           <div>
             <h2 className="text-xl font-bold text-slate-900 mb-3">1. Who We Are</h2>
-            <p>Guardian Inbox is a personal AI email companion service operated as a sole proprietorship. We can be reached at <a href="mailto:hello@guardianinbox.com" className="text-blue-600 hover:underline">hello@guardianinbox.com</a>.</p>
+            <p>Guardian Inbox is a personal AI email companion service operated as a sole proprietorship. We can be reached at <a href="mailto:info@guardianinbox.com" className="text-blue-600 hover:underline">info@guardianinbox.com</a>.</p>
           </div>
 
           <div>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
 
           <div>
             <h2 className="text-xl font-bold text-slate-900 mb-3">6. Your Rights</h2>
-            <p>You have the right to access, correct, or delete your personal data. To make a request, email us at <a href="mailto:hello@guardianinbox.com" className="text-blue-600 hover:underline">hello@guardianinbox.com</a> and we will respond within 30 days.</p>
+            <p>You have the right to access, correct, or delete your personal data. To make a request, email us at <a href="mailto:info@guardianinbox.com" className="text-blue-600 hover:underline">info@guardianinbox.com</a> and we will respond within 30 days.</p>
           </div>
 
           <div>
@@ -81,7 +81,7 @@ export default function PrivacyPage() {
 
           <div>
             <h2 className="text-xl font-bold text-slate-900 mb-3">9. Contact</h2>
-            <p>Questions about this policy? Email us at <a href="mailto:hello@guardianinbox.com" className="text-blue-600 hover:underline">hello@guardianinbox.com</a>.</p>
+            <p>Questions about this policy? Email us at <a href="mailto:info@guardianinbox.com" className="text-blue-600 hover:underline">info@guardianinbox.com</a>.</p>
           </div>
 
         </div>

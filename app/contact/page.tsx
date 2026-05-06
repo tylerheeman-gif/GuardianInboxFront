@@ -29,10 +29,10 @@ export default function ContactPage() {
         </p>
 
         <a
-          href="mailto:hello@guardianinbox.com"
+          href="mailto:info@guardianinbox.com"
           className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base shadow-lg shadow-blue-600/20"
         >
-          hello@guardianinbox.com
+          info@guardianinbox.com
         </a>
 
         <p className="text-slate-400 text-sm mt-6">We typically respond within one business day.</p>

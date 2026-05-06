@@ -87,7 +87,7 @@ export default function TermsPage() {
 
           <div>
             <h2 className="text-xl font-bold text-slate-900 mb-3">10. Contact</h2>
-            <p>Questions about these terms? Email us at <a href="mailto:hello@guardianinbox.com" className="text-blue-600 hover:underline">hello@guardianinbox.com</a>.</p>
+            <p>Questions about these terms? Email us at <a href="mailto:info@guardianinbox.com" className="text-blue-600 hover:underline">info@guardianinbox.com</a>.</p>
           </div>
 
         </div>
