@@ -197,7 +197,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const t = setInterval(() => setTPos(p => p + 1), 5000);
+    const t = setInterval(() => setTPos(p => p + 1), 15000);
     return () => clearInterval(t);
   }, []);
 
