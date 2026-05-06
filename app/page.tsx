@@ -676,7 +676,7 @@ export default function Home() {
             <div
               style={{
                 display: 'flex',
-                animation: 'testimonial-crawl 60s linear infinite',
+                animation: 'testimonial-crawl 30s linear infinite',
                 animationPlayState: tHovered ? 'paused' : 'running',
               }}
             >
