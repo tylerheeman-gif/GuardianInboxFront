@@ -328,14 +328,14 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold mr-1">Works with</span>
               {[
-                { name: 'Gmail',   slug: 'gmail',            color: 'EA4335' },
-                { name: 'Yahoo',   slug: 'yahoo',            color: '6001D2' },
-                { name: 'AOL',     slug: 'aol',              color: '39B6FF' },
-                { name: 'Outlook', slug: 'microsoftoutlook', color: '0078D4' },
-                { name: 'iCloud',  slug: 'icloud',           color: '3693F3' },
-              ].map(({ name, slug, color }) => (
+                { name: 'Gmail',   icon: 'simple-icons:gmail',             color: '%23EA4335' },
+                { name: 'Yahoo',   icon: 'simple-icons:yahoo',             color: '%236001D2' },
+                { name: 'AOL',     icon: 'simple-icons:aol',               color: '%2339B6FF' },
+                { name: 'Outlook', icon: 'mdi:microsoft-outlook',          color: '%230078D4' },
+                { name: 'iCloud',  icon: 'simple-icons:icloud',            color: '%233693F3' },
+              ].map(({ name, icon, color }) => (
                 <span key={name} className="inline-flex items-center gap-1.5 text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">
-                  <img src={`https://cdn.simpleicons.org/${slug}/${color}`} alt={name} className="w-3 h-3" />
+                  <img src={`https://api.iconify.design/${icon}.svg?color=${color}`} alt={name} className="w-3 h-3" />
                   {name}
                 </span>
               ))}
@@ -591,17 +591,17 @@ export default function Home() {
                 <p className="text-slate-500 text-xs font-semibold uppercase tracking-widest mb-5 text-center">Works with every email provider</p>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { name: 'Gmail',       slug: 'gmail',              color: 'EA4335' },
-                    { name: 'Yahoo Mail',  slug: 'yahoo',              color: '6001D2' },
-                    { name: 'AOL Mail',    slug: 'aol',                color: '39B6FF' },
-                    { name: 'Outlook',     slug: 'microsoftoutlook',   color: '0078D4' },
-                    { name: 'iCloud Mail', slug: 'icloud',             color: '3693F3' },
-                    { name: 'Any inbox',   slug: null,                 color: null     },
-                  ].map(({ name, slug, color }) => (
+                    { name: 'Gmail',       icon: 'simple-icons:gmail',        color: '%23EA4335' },
+                    { name: 'Yahoo Mail',  icon: 'simple-icons:yahoo',        color: '%236001D2' },
+                    { name: 'AOL Mail',    icon: 'simple-icons:aol',          color: '%2339B6FF' },
+                    { name: 'Outlook',     icon: 'mdi:microsoft-outlook',     color: '%230078D4' },
+                    { name: 'iCloud Mail', icon: 'simple-icons:icloud',       color: '%233693F3' },
+                    { name: 'Any inbox',   icon: null,                        color: null        },
+                  ].map(({ name, icon, color }) => (
                     <div key={name} className="bg-slate-700 rounded-xl px-2 py-3 flex flex-col items-center gap-2">
-                      {slug ? (
+                      {icon ? (
                         <img
-                          src={`https://cdn.simpleicons.org/${slug}/${color}`}
+                          src={`https://api.iconify.design/${icon}.svg?color=${color}`}
                           alt={name}
                           className="w-6 h-6"
                         />
