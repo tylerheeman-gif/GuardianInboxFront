@@ -273,9 +273,19 @@ export default function Home() {
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold mr-1">Works with</span>
-              {['Gmail', 'Yahoo', 'AOL', 'Outlook', 'iCloud', 'any inbox'].map((p) => (
-                <span key={p} className="text-xs font-medium bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">{p}</span>
+              {[
+                { name: 'Gmail',   slug: 'gmail',            color: 'EA4335' },
+                { name: 'Yahoo',   slug: 'yahoo',            color: '6001D2' },
+                { name: 'AOL',     slug: 'aol',              color: '39B6FF' },
+                { name: 'Outlook', slug: 'microsoftoutlook', color: '0078D4' },
+                { name: 'iCloud',  slug: 'icloud',           color: '3693F3' },
+              ].map(({ name, slug, color }) => (
+                <span key={name} className="inline-flex items-center gap-1.5 text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">
+                  <img src={`https://cdn.simpleicons.org/${slug}/${color}`} alt={name} className="w-3 h-3" />
+                  {name}
+                </span>
               ))}
+              <span className="text-xs font-medium bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">+ more</span>
             </div>
           </div>
 
@@ -653,11 +663,29 @@ export default function Home() {
                 <p className="text-blue-200 text-lg">The one they&apos;ve used for years.</p>
               </div>
               <div className="bg-slate-800 rounded-2xl p-6">
-                <p className="text-slate-500 text-xs font-semibold uppercase tracking-widest mb-4 text-center">Works with every email provider</p>
+                <p className="text-slate-500 text-xs font-semibold uppercase tracking-widest mb-5 text-center">Works with every email provider</p>
                 <div className="grid grid-cols-3 gap-3">
-                  {['Gmail', 'Yahoo Mail', 'AOL Mail', 'Outlook', 'iCloud Mail', 'Any inbox'].map((provider) => (
-                    <div key={provider} className="bg-slate-700 rounded-xl px-3 py-2.5 text-slate-300 text-sm text-center font-medium">
-                      {provider}
+                  {[
+                    { name: 'Gmail',       slug: 'gmail',              color: 'EA4335' },
+                    { name: 'Yahoo Mail',  slug: 'yahoo',              color: '6001D2' },
+                    { name: 'AOL Mail',    slug: 'aol',                color: '39B6FF' },
+                    { name: 'Outlook',     slug: 'microsoftoutlook',   color: '0078D4' },
+                    { name: 'iCloud Mail', slug: 'icloud',             color: '3693F3' },
+                    { name: 'Any inbox',   slug: null,                 color: null     },
+                  ].map(({ name, slug, color }) => (
+                    <div key={name} className="bg-slate-700 rounded-xl px-2 py-3 flex flex-col items-center gap-2">
+                      {slug ? (
+                        <img
+                          src={`https://cdn.simpleicons.org/${slug}/${color}`}
+                          alt={name}
+                          className="w-6 h-6"
+                        />
+                      ) : (
+                        <svg className="w-6 h-6 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                        </svg>
+                      )}
+                      <span className="text-slate-300 text-xs text-center font-medium leading-tight">{name}</span>
                     </div>
                   ))}
                 </div>
