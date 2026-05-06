@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     url: 'https://guardianinbox.com',
     siteName: 'Guardian Inbox',
     type: 'website',
-    images: [{ url: 'https://guardianinbox.com/hero-photo.jpg', width: 1200, height: 630 }],
+    images: [{ url: 'https://guardianinbox.com/stock3.jpg', width: 1200, height: 630 }],
   },
 };
 
