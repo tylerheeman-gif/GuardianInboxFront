@@ -33,6 +33,7 @@ export default function AccountPage() {
   const [editName, setEditName] = useState('');
   const [editNotes, setEditNotes] = useState('');
   const [editError, setEditError] = useState('');
+  const [portalLoading, setPortalLoading] = useState(false);
 
   function getToken() {
     return localStorage.getItem('gi_session');
@@ -106,6 +107,22 @@ export default function AccountPage() {
     setUsers(u => u.filter(user => user.id !== id));
   }
 
+  async function openBillingPortal() {
+    setPortalLoading(true);
+    try {
+      const res = await fetch(`${API}/api/account/billing-portal`, {
+        method: 'POST',
+        headers: authHeaders(),
+      });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+    } catch {
+      // silently fail
+    } finally {
+      setPortalLoading(false);
+    }
+  }
+
   function signOut() {
     localStorage.removeItem('gi_session');
     router.replace('/account/login');
@@ -146,6 +163,13 @@ export default function AccountPage() {
             <span className="text-sm text-slate-500 capitalize">{account?.status}</span>
           </div>
           <p className="text-xs text-slate-400 mt-3">Account: {account?.email}</p>
+          <button
+            onClick={openBillingPortal}
+            disabled={portalLoading}
+            className="mt-4 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors disabled:opacity-60"
+          >
+            {portalLoading ? 'Loading…' : 'Manage billing or cancel plan →'}
+          </button>
         </div>
 
         {/* Users card */}
