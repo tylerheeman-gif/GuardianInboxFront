@@ -355,17 +355,27 @@ export default function Home() {
                 unoptimized
               />
             </div>
-            <div className="absolute -bottom-5 -left-6 bg-white rounded-2xl shadow-xl border border-slate-100 p-4 max-w-[260px]">
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-base">✉️</span>
+            <div className="absolute -bottom-5 -left-6 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden max-w-[270px]">
+              {/* Stoplight chrome */}
+              <div className="bg-slate-100 px-3 py-2 flex items-center gap-1.5 border-b border-slate-200">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+                <span className="text-slate-400 text-[10px] mx-auto">Inbox</span>
+              </div>
+              {/* From */}
+              <div className="flex items-center gap-2 px-3 py-2 border-b border-slate-100">
+                <span className="text-slate-400 text-[10px] font-medium w-8 shrink-0">From</span>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center text-white text-[7px] font-bold shrink-0">GI</div>
+                  <span className="text-slate-700 text-[11px] font-medium">Guardian Inbox</span>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-slate-800">Reply from Guardian Inbox</p>
-                  <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
-                    That email is a scam. You are safe -- just delete it and do nothing else.
-                  </p>
-                </div>
+              </div>
+              {/* Body */}
+              <div className="px-3 py-2.5">
+                <p className="text-slate-600 text-[11px] leading-relaxed">
+                  That email is a scam. You are completely safe -- just delete it and do nothing else. 😊
+                </p>
               </div>
             </div>
           </div>
