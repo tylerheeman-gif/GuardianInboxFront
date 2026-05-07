@@ -366,15 +366,17 @@ export default function Home() {
               {/* From */}
               <div className="flex items-center gap-2 px-3 py-2 border-b border-slate-100">
                 <span className="text-slate-400 text-[10px] font-medium w-8 shrink-0">From</span>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center text-white text-[7px] font-bold shrink-0">GI</div>
-                  <span className="text-slate-700 text-[11px] font-medium">Guardian Inbox</span>
-                </div>
+                <span className="text-slate-600 text-[10px] truncate">security-alert@amazon-verify-account.net</span>
+              </div>
+              {/* Subject */}
+              <div className="flex items-center gap-2 px-3 py-2 border-b border-slate-100">
+                <span className="text-slate-400 text-[10px] font-medium w-8 shrink-0">Re</span>
+                <span className="text-slate-800 text-[11px] font-semibold truncate">Urgent: Your account has been suspended</span>
               </div>
               {/* Body */}
               <div className="px-3 py-2.5">
                 <p className="text-slate-600 text-[11px] leading-relaxed">
-                  That email is a scam. You are completely safe -- just delete it and do nothing else. 😊
+                  Your Social Security number has been flagged. Call <span className="text-red-600 font-semibold">1-800-555-0192</span> immediately.
                 </p>
               </div>
             </div>
