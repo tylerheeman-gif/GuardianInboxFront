@@ -307,7 +307,7 @@ export default function Home() {
                 href="/pricing"
                 className="inline-block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base shadow-lg shadow-blue-600/20"
               >
-                Protect your parent today →
+                Compare pricing →
               </Link>
               <a
                 href="#how-it-works"
@@ -357,13 +357,13 @@ export default function Home() {
             </div>
             <div className="absolute -bottom-5 -left-6 bg-white rounded-2xl shadow-xl border border-slate-100 p-4 max-w-[260px]">
               <div className="flex items-start gap-3">
-                <div className="w-9 h-9 bg-red-50 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-base">🚨</span>
+                <div className="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="text-base">✉️</span>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-slate-800">Scam Detected</p>
+                  <p className="text-sm font-semibold text-slate-800">Reply from Guardian Inbox</p>
                   <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
-                    This is a phishing email. Do not click any links or reply. You are safe.
+                    That email is a scam. You are safe -- just delete it and do nothing else.
                   </p>
                 </div>
               </div>
