@@ -80,6 +80,8 @@ const tiers = [
 export default function PricingPage() {
   const [modal, setModal] = useState<{ priceId: string; planName: string; displayPrice: string } | null>(null);
   const [email, setEmail] = useState('');
+  const [promoCode, setPromoCode] = useState('');
+  const [promoOpen, setPromoOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
@@ -93,7 +95,7 @@ export default function PricingPage() {
       const res = await fetch('https://guardianinboxback-production.up.railway.app/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId: modal.priceId, email }),
+        body: JSON.stringify({ priceId: modal.priceId, email, promoCode: promoCode.trim() || undefined }),
       });
       const data = await res.json();
       if (data.url) {
@@ -115,6 +117,8 @@ export default function PricingPage() {
       : `$${tier.monthlyPrice}/month`;
     setModal({ priceId, planName: tier.name, displayPrice });
     setEmail('');
+    setPromoCode('');
+    setPromoOpen(false);
     setError('');
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'begin_checkout', {
@@ -147,6 +151,28 @@ export default function PricingPage() {
                   placeholder="you@example.com"
                   className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+              </div>
+              <div>
+                {!promoOpen ? (
+                  <button
+                    type="button"
+                    onClick={() => setPromoOpen(true)}
+                    className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                  >
+                    Have a promo code?
+                  </button>
+                ) : (
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Promo code</label>
+                    <input
+                      type="text"
+                      value={promoCode}
+                      onChange={e => setPromoCode(e.target.value.toUpperCase())}
+                      placeholder="FOUNDERS"
+                      className="w-full border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase tracking-wider"
+                    />
+                  </div>
+                )}
               </div>
               {error && <p className="text-red-500 text-sm">{error}</p>}
               <button
