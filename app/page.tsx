@@ -272,6 +272,9 @@ export default function Home() {
             <Link href="/compare" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
               Compare
             </Link>
+            <Link href="/blog" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
+              Blog
+            </Link>
             <Link href="/account/login" className="text-slate-500 hover:text-slate-900 text-sm font-medium transition-colors hidden sm:block">
               Sign in
             </Link>
@@ -907,6 +910,7 @@ export default function Home() {
           <img src="/GuardianInboxLogo.png" alt="Guardian Inbox" className="h-7" />
           <p className="text-slate-400 text-sm">© 2026 Guardian Inbox. All rights reserved.</p>
           <div className="flex gap-6 text-sm text-slate-400">
+            <Link href="/blog" className="hover:text-slate-700 transition-colors">Blog</Link>
             <Link href="/privacy" className="hover:text-slate-700 transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-slate-700 transition-colors">Terms of Service</Link>
             <Link href="/contact" className="hover:text-slate-700 transition-colors">Contact</Link>
